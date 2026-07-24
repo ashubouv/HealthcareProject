@@ -1,0 +1,194 @@
+/* ============================================================
+   Personal Health Records — hi-fi design system
+   Lo-fi wireframe elevated to a calm, trustworthy clinical
+   identity. Warm-neutral base, a single "health" teal primary,
+   and a small set of low-chroma status hues. Large, legible
+   type for elderly patients and caretakers.
+   ============================================================ */
+
+:root {
+  /* --- Surfaces & ink (warm neutral, very low saturation) --- */
+  --bg: oklch(0.97 0.004 95);          /* app backdrop, warm off-white */
+  --surface: oklch(1 0 0);             /* cards */
+  --surface-2: oklch(0.975 0.004 95);  /* subtle fills / inset rows */
+  --surface-3: oklch(0.955 0.005 95);  /* chips, wells */
+  --line: oklch(0.92 0.004 95);        /* hairline borders */
+  --line-strong: oklch(0.86 0.005 95);
+
+  --ink: oklch(0.27 0.012 250);        /* primary text, soft near-black */
+  --ink-2: oklch(0.45 0.01 250);       /* secondary text */
+  --ink-3: oklch(0.62 0.008 250);      /* tertiary / captions */
+  --ink-4: oklch(0.74 0.006 250);      /* faint hints / placeholders */
+
+  /* --- Primary: a calm, healthy teal (trust, vitality) --- */
+  --primary: oklch(0.55 0.072 192);
+  --primary-press: oklch(0.49 0.072 192);
+  --primary-ink: oklch(0.99 0.01 192);
+  --primary-tint: oklch(0.95 0.022 192);   /* chip / badge bg */
+  --primary-tint-ink: oklch(0.45 0.06 192);
+  --primary-soft: oklch(0.97 0.014 192);   /* hero wash */
+
+  /* --- Status hues (shared low chroma, varied hue) --- */
+  --good: oklch(0.6 0.08 155);             /* improving / on track */
+  --good-tint: oklch(0.95 0.03 155);
+  --warn: oklch(0.7 0.085 75);             /* rising / caution */
+  --warn-tint: oklch(0.95 0.04 80);
+  --alert: oklch(0.6 0.11 32);             /* high / above target */
+  --alert-tint: oklch(0.95 0.035 35);
+
+  /* --- Radii --- */
+  --r-sm: 9px;
+  --r-md: 13px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  /* --- Shadows (soft, diffuse) --- */
+  --shadow-sm: 0 1px 2px oklch(0.4 0.02 250 / 0.05), 0 1px 3px oklch(0.4 0.02 250 / 0.04);
+  --shadow-md: 0 4px 14px oklch(0.4 0.02 250 / 0.08);
+  --shadow-lg: 0 14px 40px oklch(0.35 0.02 250 / 0.16);
+  --shadow-phone: 0 30px 70px -20px oklch(0.35 0.03 250 / 0.4), 0 0 0 1px var(--line-strong);
+
+  --font-ui: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+input {
+  font: inherit;
+}
+
+::selection {
+  background: var(--primary-tint);
+}
+
+/* thin, unobtrusive scrollbars inside the phone */
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 3px;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sheetUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scrimIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: -300px 0;
+  }
+  to {
+    background-position: 300px 0;
+  }
+}
+@keyframes growBar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: var(--len);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

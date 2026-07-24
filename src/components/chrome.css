@@ -1,0 +1,165 @@
+/* Tab bar */
+.tabbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 12px 14px calc(18px + env(safe-area-inset-bottom, 0px));
+  background: oklch(1 0 0 / 0.86);
+  backdrop-filter: blur(18px) saturate(1.2);
+  border-top: 1px solid var(--line);
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 56px;
+  color: var(--ink-4);
+  font: 600 10px var(--font-ui);
+  transition: color 0.12s ease;
+}
+.tab--on {
+  color: var(--primary);
+}
+.tabbar__add {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  margin-top: -24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-ink);
+  background: var(--primary);
+  box-shadow: 0 8px 20px -6px var(--primary), 0 2px 6px oklch(0.4 0.02 250 / 0.2);
+  transition: transform 0.1s ease, background 0.12s ease;
+}
+.tabbar__add:active {
+  transform: scale(0.92);
+  background: var(--primary-press);
+}
+
+/* Modal scrim + sheet */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  background: oklch(0.2 0.01 250 / 0.45);
+  backdrop-filter: blur(2px);
+  animation: scrimIn 0.18s ease;
+}
+.sheet {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: appear 0.22s ease;
+}
+.sheet__title {
+  padding: 20px 20px 4px;
+  text-align: center;
+  font: 600 17px var(--font-ui);
+  color: var(--ink);
+}
+.sheet__opts {
+  padding: 14px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.sheet__cancel {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+  padding: 16px;
+  text-align: center;
+  font: 600 15px var(--font-ui);
+  color: var(--ink-2);
+  width: 100%;
+}
+.sheet__cancel:active {
+  background: var(--surface-3);
+}
+
+/* big choice card used in add-sheet + manual picker */
+.choice {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px;
+  background: var(--surface);
+  width: 100%;
+  text-align: left;
+  transition: background 0.12s ease, transform 0.08s ease, border-color 0.12s ease;
+}
+.choice:active {
+  background: var(--surface-3);
+  transform: scale(0.99);
+}
+.choice__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background: var(--primary-tint);
+  color: var(--primary);
+}
+.choice__icon--ghost {
+  background: var(--surface-3);
+  color: var(--ink-2);
+}
+.choice__title {
+  font: 600 15px var(--font-ui);
+  color: var(--ink);
+}
+.choice__sub {
+  font: 12.5px/1.4 var(--font-ui);
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+
+/* Dev-only "Reset / Start over" control */
+.dev-reset {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border-radius: var(--r-pill);
+  background: oklch(0.25 0.012 250);
+  color: #fff;
+  font: 600 12.5px var(--font-ui);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.08s ease, background 0.12s ease;
+}
+.dev-reset:active {
+  transform: scale(0.96);
+}
+.dev-reset:hover {
+  background: oklch(0.32 0.012 250);
+}
+@media (max-width: 460px) {
+  .dev-reset {
+    top: auto;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    right: 14px;
+    opacity: 0.92;
+  }
+}
