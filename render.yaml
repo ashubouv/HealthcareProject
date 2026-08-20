@@ -1,0 +1,24 @@
+# Render deployment config. With this in the repo, Render can set up the whole
+# service automatically (New → Blueprint → pick this repo). You still add the two
+# secrets (DATABASE_URL, ANTHROPIC_API_KEY) in the dashboard.
+services:
+  - type: web
+    name: healthcare-project
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # set this in the Render dashboard (your Supabase URI)
+      - key: ANTHROPIC_API_KEY
+        sync: false # set this in the Render dashboard (your Claude key)
+      - key: BREVO_API_KEY
+        sync: false # Brevo HTTPS email API key (Render free tier blocks SMTP)
+      - key: EMAIL_FROM
+        sync: false # the address sign-in codes are sent from
+      - key: NODE_OPTIONS
+        value: --dns-result-order=ipv4first

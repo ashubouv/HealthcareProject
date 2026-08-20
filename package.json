@@ -1,0 +1,48 @@
+{
+  "name": "health-records",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,green \"vite\" \"npm:server\"",
+    "web": "vite",
+    "server": "tsx watch server/index.ts",
+    "start": "tsx server/index.ts",
+    "build": "vite build",
+    "build:check": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "typecheck:server": "tsc -p server/tsconfig.json",
+    "db:reset": "tsx server/reset.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.106.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "lucide-react": "^0.456.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "pg": "^8.22.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.20.0",
+    "@types/nodemailer": "^8.0.1",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.2.3",
+    "tsx": "^4.22.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

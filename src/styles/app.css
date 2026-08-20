@@ -1,0 +1,658 @@
+/* ============================================================
+   App shell + shared UI primitives
+   ============================================================ */
+
+/* ---------- Board (desktop presentation backdrop) ---------- */
+.board {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: 44px 20px 64px;
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--primary-soft), transparent 60%),
+    var(--bg);
+}
+
+.board__intro {
+  text-align: center;
+  max-width: 520px;
+}
+.board__eyebrow {
+  font: 600 12px var(--font-ui);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary-tint-ink);
+  margin-bottom: 10px;
+}
+.board__title {
+  margin: 0 0 8px;
+  font: 500 30px/1.1 var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.board__sub {
+  margin: 0;
+  font: 14px/1.55 var(--font-ui);
+  color: var(--ink-3);
+}
+
+/* ---------- Phone frame ---------- */
+.phone {
+  width: 390px;
+  height: 820px;
+  background: oklch(0.18 0.012 250);
+  border-radius: 52px;
+  padding: 11px;
+  box-shadow: var(--shadow-phone);
+  flex: none;
+}
+.phone__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  border-radius: 42px;
+  overflow: hidden;
+}
+/* notch */
+.phone__screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 132px;
+  height: 26px;
+  background: oklch(0.18 0.012 250);
+  border-radius: 0 0 16px 16px;
+  z-index: 50;
+}
+
+@media (max-width: 460px) {
+  .board {
+    padding: 0;
+    gap: 0;
+  }
+  .board__intro {
+    display: none;
+  }
+  .phone {
+    width: 100vw;
+    height: 100svh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .phone__screen {
+    border-radius: 0;
+  }
+  .phone__screen::before {
+    display: none;
+  }
+}
+
+/* ---------- Screen scaffold ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.22s ease;
+}
+.screen__body {
+  flex: 1;
+  padding: 0 20px 104px;
+}
+.screen__body--flush {
+  padding: 0;
+}
+
+/* status bar */
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 22px 6px;
+  font: 600 13px var(--font-ui);
+  color: var(--ink-2);
+  flex: none;
+}
+.statusbar__right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-3);
+}
+
+/* generic top header with back/close + title + optional action */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 18px 12px;
+  flex: none;
+}
+/* When the back-button header is the first thing on a screen (no status bar
+   above it), drop it below the iPhone notch / Dynamic Island. Uses the real
+   safe-area inset when reported, but also enforces a minimum so it clears the
+   preview frame's simulated notch even when the inset comes back as 0. The
+   phone-sized minimum lives in the mobile media block at the end of this file. */
+.screen > .topbar:first-child,
+.capture > .topbar:first-child {
+  padding-top: max(calc(6px + env(safe-area-inset-top, 0px)), 30px);
+}
+.topbar__title {
+  flex: 1;
+  font: 600 18px var(--font-ui);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* circular / squared icon button */
+.iconbtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-2);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: background 0.12s ease, transform 0.08s ease;
+  flex: none;
+}
+.iconbtn:active {
+  background: var(--surface-3);
+  transform: scale(0.94);
+}
+
+/* ---------- Labels / eyebrows ---------- */
+.eyebrow {
+  font: 600 11px var(--font-ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 11px;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+.card--pad {
+  padding: 16px;
+}
+.card--flat {
+  box-shadow: none;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 54px;
+  border-radius: 15px;
+  font: 600 15px var(--font-ui);
+  letter-spacing: -0.01em;
+  transition: transform 0.08s ease, background 0.12s ease, opacity 0.12s ease;
+  width: 100%;
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn--primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+  box-shadow: 0 6px 16px -6px var(--primary);
+}
+.btn--primary:active {
+  background: var(--primary-press);
+}
+.btn--ghost {
+  background: var(--surface);
+  color: var(--ink-2);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-sm);
+}
+.btn--ghost:active {
+  background: var(--surface-3);
+}
+.btn--sm {
+  height: 46px;
+  font-size: 14px;
+  border-radius: 13px;
+}
+
+/* ---------- Chips (filters / tags) ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 13px var(--font-ui);
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+  background: var(--surface-3);
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+.chip:active {
+  transform: scale(0.96);
+}
+.chip--on {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+.chip--tag {
+  background: var(--primary-tint);
+  color: var(--primary-tint-ink);
+  font-weight: 500;
+}
+.chip--add {
+  background: transparent;
+  color: var(--ink-4);
+  border: 1px dashed var(--line-strong);
+}
+
+.chiprow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chiprow--scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.chiprow--scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Status badge ---------- */
+.badge {
+  font: 600 11px var(--font-ui);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.badge--neutral {
+  background: var(--surface-3);
+  color: var(--ink-2);
+}
+.badge--good {
+  background: var(--good-tint);
+  color: var(--good);
+}
+.badge--warn {
+  background: var(--warn-tint);
+  color: oklch(0.5 0.09 70);
+}
+.badge--alert {
+  background: var(--alert-tint);
+  color: var(--alert);
+}
+.badge--solid {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+.badge--outline {
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+}
+
+/* ---------- Segmented control ---------- */
+.seg {
+  display: inline-flex;
+  background: var(--surface-3);
+  border-radius: var(--r-pill);
+  padding: 3px;
+  gap: 2px;
+}
+.seg__item {
+  font: 500 13px var(--font-ui);
+  padding: 7px 15px;
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.seg__item--on {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Underline tabs ---------- */
+.utabs {
+  display: flex;
+  gap: 26px;
+  border-bottom: 1px solid var(--line);
+  padding: 0 20px;
+  flex: none;
+}
+.utab {
+  font: 600 14px var(--font-ui);
+  color: var(--ink-4);
+  padding: 4px 0 12px;
+  position: relative;
+}
+.utab--on {
+  color: var(--ink);
+}
+.utab--on::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+
+/* ---------- Toggle switch ---------- */
+.switch {
+  width: 44px;
+  height: 26px;
+  border-radius: var(--r-pill);
+  background: var(--line-strong);
+  position: relative;
+  transition: background 0.18s ease;
+  flex: none;
+}
+.switch--on {
+  background: var(--primary);
+}
+.switch__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: left 0.18s ease;
+}
+.switch--on .switch__knob {
+  left: 21px;
+}
+
+/* ---------- Text fields (display-only prototype values) ---------- */
+.field {
+  display: block;
+}
+.field__label {
+  font: 600 11px var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 7px;
+}
+.field__input {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  font: 15px var(--font-ui);
+  color: var(--ink);
+  width: 100%;
+}
+.field__input--multi {
+  height: 64px;
+  align-items: flex-start;
+  padding-top: 13px;
+  color: var(--ink-4);
+}
+.field__input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: var(--ink);
+}
+
+.row {
+  display: flex;
+  gap: 11px;
+}
+.row > * {
+  flex: 1;
+}
+
+/* ---------- Doc thumbnail placeholder (hi-fi: soft paper) ---------- */
+.doc {
+  position: relative;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, oklch(0.98 0.005 95), oklch(0.94 0.006 95));
+  border: 1px solid var(--line);
+  overflow: hidden;
+  flex: none;
+  color: var(--ink-4);
+}
+.doc::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 24%;
+  bottom: 30%;
+  background:
+    repeating-linear-gradient(
+      var(--line) 0 1.5px,
+      transparent 1.5px 6px
+    );
+  opacity: 0.7;
+}
+
+/* generic list-row affordance */
+.listrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  text-align: left;
+  transition: background 0.12s ease, transform 0.08s ease;
+}
+.listrow:active {
+  background: var(--surface-3);
+  transform: scale(0.99);
+}
+.listrow__title {
+  font: 500 15px var(--font-ui);
+  color: var(--ink);
+}
+.listrow__sub {
+  font: 13px var(--font-ui);
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+.muted {
+  color: var(--ink-3);
+}
+.chev {
+  color: var(--ink-4);
+  flex: none;
+}
+
+/* data table rows inside cards */
+.kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 0;
+  font: 14px var(--font-ui);
+  color: var(--ink-2);
+}
+.kv + .kv {
+  border-top: 1px solid var(--line);
+}
+.kv__v {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* attention / alert callout card */
+.callout {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 14px;
+  border-radius: var(--r-md);
+  background: var(--warn-tint);
+  border: 1px solid oklch(0.88 0.05 80);
+  width: 100%;
+  text-align: left;
+  transition: transform 0.08s ease;
+}
+.callout:active {
+  transform: scale(0.99);
+}
+.callout__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: oklch(0.92 0.06 80);
+  color: oklch(0.5 0.1 65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.callout--info {
+  background: var(--primary-soft);
+  border-color: oklch(0.9 0.03 192);
+}
+.callout--info .callout__icon {
+  background: var(--primary-tint);
+  color: var(--primary);
+}
+.callout__text {
+  font: 13px/1.4 var(--font-ui);
+  color: var(--ink-2);
+}
+.callout__text b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.divider {
+  height: 1px;
+  background: var(--line);
+}
+.center-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   Notch / Dynamic Island clearance on real phones
+   On a phone the app fills the screen, so the OS notch / Dynamic
+   Island sits over our content. Guarantee enough top space to
+   clear it even if env(safe-area-inset-top) reports 0 (which
+   happens in some non-fullscreen Safari contexts). The real
+   inset wins via max() when it is larger.
+   ============================================================ */
+@media (max-width: 460px) {
+  .statusbar {
+    padding-top: max(calc(14px + env(safe-area-inset-top, 0px)), 32px);
+  }
+  .screen > .topbar:first-child,
+  .capture > .topbar:first-child {
+    padding-top: max(env(safe-area-inset-top, 0px), 60px);
+  }
+  .auth {
+    padding-top: max(env(safe-area-inset-top, 0px), 24px);
+  }
+}
+
+/* ============================================================
+   Bottom sheet (used for quick add flows, e.g. add a medication)
+   Absolutely fills the phone screen and docks a card to the base.
+   ============================================================ */
+.addsheet-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background: oklch(0.2 0.02 250 / 0.38);
+  display: flex;
+  align-items: flex-end;
+  animation: sheetFade 0.16s ease;
+}
+.addsheet {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+  box-shadow: var(--shadow-lg);
+  animation: sheetUp 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  max-height: 88%;
+  overflow-y: auto;
+}
+@keyframes sheetFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sheetUp {
+  from { transform: translateY(18px); opacity: 0.6; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ============================================================
+   Print — used by the Doctor summary "Share / print". Strip the
+   desktop board + phone frame and print just the summary content
+   full-width on paper.
+   ============================================================ */
+@media print {
+  body { background: #fff; }
+  .board__intro,
+  .devreset,
+  .tabbar,
+  .screen-foot,
+  .statusbar,
+  .topbar__action,
+  .no-print { display: none !important; }
+
+  .board { display: block !important; padding: 0 !important; background: #fff !important; }
+  .phone,
+  .phone__screen {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+  .phone__screen::before { display: none !important; }
+  .screen { height: auto !important; }
+  .screen__body { overflow: visible !important; }
+  .card { box-shadow: none !important; border: 1px solid #ddd !important; }
+}

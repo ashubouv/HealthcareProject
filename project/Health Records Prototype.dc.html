@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#e9e8e6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#e9e8e6"/>
+    <rect x="475" y="170" width="250" height="500" rx="46" fill="#ffffff" stroke="#b6b4b0" stroke-width="4"/>
+    <rect x="500" y="210" width="200" height="60" rx="10" fill="#ececea"/>
+    <rect x="500" y="300" width="200" height="44" rx="8" fill="#f1f1ef"/>
+    <rect x="500" y="360" width="200" height="44" rx="8" fill="#f1f1ef"/>
+    <circle cx="600" cy="600" r="34" fill="#555555"/>
+    <rect x="586" y="596" width="28" height="8" rx="2" fill="#ffffff"/>
+    <rect x="596" y="586" width="8" height="28" rx="2" fill="#ffffff"/>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+@keyframes appear { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:none } }
+@keyframes sheetUp { from { transform:translateY(100%) } to { transform:none } }
+@keyframes fade { from { opacity:0 } to { opacity:1 } }
+* { -webkit-tap-highlight-color:transparent }
+</style>
+</helmet>
+
+<div style="min-height:100vh; box-sizing:border-box; padding:40px 24px 60px; background:#e9e8e6; font-family:'Helvetica Neue',Helvetica,Arial,system-ui,sans-serif; display:flex; flex-direction:column; align-items:center; gap:24px">
+
+  <div style="text-align:center; max-width:520px">
+    <div style="font:700 12px ui-monospace,monospace; letter-spacing:.14em; color:#a6a4a0; text-transform:uppercase; margin-bottom:8px">Clickable prototype · lo-fi</div>
+    <h1 style="margin:0 0 8px; font:600 26px 'Helvetica Neue',sans-serif; color:#2b2b2b; letter-spacing:-.01em">Personal Health Records</h1>
+    <div style="font:13px/1.5 'Helvetica Neue',sans-serif; color:#888">Tap through the real flow — sign in, then use the <b style="color:#666">+</b> to scan or add a record by hand. Everything navigates.</div>
+  </div>
+
+  <!-- PHONE -->
+  <div style="width:384px; height:812px; background:#fff; border:1.5px solid #b6b4b0; border-radius:42px; padding:10px; box-sizing:border-box; box-shadow:0 8px 30px rgba(0,0,0,.13); flex:none">
+    <div style="width:100%; height:100%; background:#fafaf9; border-radius:33px; overflow:hidden; position:relative">
+
+      <!-- ===== LOGIN ===== -->
+      <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; padding:0 26px">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 4px 4px; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px">
+            <div style="width:72px; height:72px; border-radius:18px; background:repeating-linear-gradient(45deg,#efefed,#efefed 6px,#e6e6e3 6px,#e6e6e3 12px); border:1px solid #ddd; display:flex; align-items:center; justify-content:center; font:9px ui-monospace,monospace; color:#a8a8a4">logo</div>
+            <div style="text-align:center"><div style="font:600 20px system-ui; color:#3e3e3e">Your health record</div><div style="font:13px system-ui; color:#999; margin-top:5px">One organized history, always with you</div></div>
+          </div>
+          <div style="padding-bottom:34px">
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Mobile number</div>
+            <div style="display:flex; gap:8px; margin-bottom:14px"><div style="width:60px; height:50px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:center; font:14px system-ui; color:#666">+91</div><div style="flex:1; height:50px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#999">98765 43210</div></div>
+            <div onClick="{{ goVerify }}" style="height:52px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Send code</div>
+            <div style="display:flex; align-items:center; gap:10px; margin:16px 0"><div style="flex:1; height:1px; background:#e4e4e0"></div><div style="font:11px system-ui; color:#bbb">or</div><div style="flex:1; height:1px; background:#e4e4e0"></div></div>
+            <div onClick="{{ goEmail }}" style="height:50px; border:1.5px solid #c4c4c0; border-radius:12px; display:flex; align-items:center; justify-content:center; font:14px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Continue with email</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== EMAIL SIGN-IN ===== -->
+      <sc-if value="{{ isEmail }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; padding:0 26px">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 4px 4px; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div>
+          <div onClick="{{ goLogin }}" style="display:flex; align-items:center; gap:10px; padding:8px 0; cursor:pointer"><div style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px">&#8249;</div></div>
+          <div style="flex:1; display:flex; flex-direction:column; padding-top:14px">
+            <div style="font:600 20px system-ui; color:#3e3e3e; margin-bottom:8px">Sign in with email</div>
+            <div style="font:13px/1.5 system-ui; color:#999; margin-bottom:26px">Use the email on your account.</div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Email</div>
+            <div style="height:50px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555; margin-bottom:16px">priya.iyer@gmail.com</div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Password</div>
+            <div style="height:50px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:space-between; padding:0 14px; margin-bottom:12px"><span style="{{ pwStyle }}">{{ pwText }}</span><span onClick="{{ togglePw }}" style="font:12px system-ui; color:#999; cursor:pointer" style-active="color:#555">{{ pwLabel }}</span></div>
+            <div onClick="{{ tForgot }}" style="font:12px system-ui; color:#888; text-decoration:underline; align-self:flex-start; cursor:pointer" style-active="color:#555">Forgot password?</div>
+          </div>
+          <div style="padding-bottom:34px"><div onClick="{{ goHome }}" style="height:52px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Sign in</div></div>
+        </div>
+      </sc-if>
+
+      <!-- ===== VERIFY ===== -->
+      <sc-if value="{{ isVerify }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column; padding:0 26px">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 4px 4px; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div>
+          <div onClick="{{ goLogin }}" style="display:flex; align-items:center; gap:10px; padding:8px 0; cursor:pointer"><div style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px">&#8249;</div></div>
+          <div style="flex:1; display:flex; flex-direction:column; padding-top:14px">
+            <div style="font:600 20px system-ui; color:#3e3e3e; margin-bottom:8px">Enter the code</div>
+            <div style="font:13px/1.5 system-ui; color:#999; margin-bottom:26px">We sent a 6-digit code to<br><b style="color:#666">+91 98765 43210</b></div>
+            <div style="display:flex; gap:9px; margin-bottom:20px">
+              <div style="flex:1; aspect-ratio:.82; border:1.5px solid #888; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:center; font:20px system-ui; color:#555">4</div>
+              <div style="flex:1; aspect-ratio:.82; border:1.5px solid #888; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:center; font:20px system-ui; color:#555">2</div>
+              <div style="flex:1; aspect-ratio:.82; border:1.5px solid #555; border-radius:11px; background:#fff; display:flex; align-items:center; justify-content:center; font:20px system-ui; color:#bbb">|</div>
+              <div style="flex:1; aspect-ratio:.82; border:1px solid #d8d8d4; border-radius:11px; background:#fff"></div>
+              <div style="flex:1; aspect-ratio:.82; border:1px solid #d8d8d4; border-radius:11px; background:#fff"></div>
+              <div style="flex:1; aspect-ratio:.82; border:1px solid #d8d8d4; border-radius:11px; background:#fff"></div>
+            </div>
+            <div onClick="{{ tResend }}" style="font:12px system-ui; color:#888; text-decoration:underline; align-self:flex-start; cursor:pointer" style-active="color:#555">Resend code</div>
+          </div>
+          <div style="padding-bottom:34px"><div onClick="{{ goHome }}" style="height:52px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Verify &amp; continue</div></div>
+        </div>
+      </sc-if>
+
+      <!-- ===== HOME ===== -->
+      <sc-if value="{{ isHome }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 4px 4px; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div>
+            <div style="display:flex; align-items:flex-start; gap:10px; padding:10px 0 4px"><div style="flex:1"><div style="font:13px system-ui; color:#a0a0a0">Good morning</div><div style="font:600 23px system-ui; color:#3a3a3a; margin-top:3px; letter-spacing:-.3px">Welcome back, Lakshmi</div></div><div onClick="{{ tProfile }}" style="width:40px; height:40px; border-radius:50%; background:#e2e2de; flex:none; cursor:pointer" style-active="opacity:.8"></div></div>
+            <div style="font:14px/1.55 system-ui; color:#777; margin:8px 0 18px">Everything&rsquo;s up to date. Nicely done.</div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Health overview</div>
+            <div style="border:1px solid #e6e6e2; border-radius:14px; background:#fff; padding:14px; margin-bottom:14px">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Active conditions</div>
+              <div style="display:flex; flex-direction:column; gap:8px">
+                <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#555">Hypertension</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 9px; border-radius:11px">Above target</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#555">Type 2 diabetes</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 9px; border-radius:11px">Improving</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#555">High cholesterol</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 9px; border-radius:11px">Rising</span></div>
+              </div>
+              <div style="display:flex; margin-top:14px; padding-top:13px; border-top:1px solid #efefed"><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Care team</div><div style="font:13px system-ui; color:#555; margin-top:4px">3 doctors</div></div><div style="flex:1; border-left:1px solid #efefed; padding-left:12px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Active meds</div><div style="font:13px system-ui; color:#555; margin-top:4px">3</div></div><div style="flex:1.3; border-left:1px solid #efefed; padding-left:12px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Next visit</div><div style="font:13px system-ui; color:#555; margin-top:4px">Dr. Rao · 24 Jun</div></div></div>
+            </div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Needs your attention</div>
+            <div onClick="{{ openLipid }}" style="border:1.5px dashed #c2c2bc; border-radius:12px; padding:11px 12px; margin-bottom:7px; display:flex; gap:9px; align-items:center; cursor:pointer" style-active="background:#f1f1ef"><div style="width:20px; height:20px; border:1.5px solid #999; border-radius:6px; display:flex; align-items:center; justify-content:center; font:12px system-ui; color:#888; flex:none">!</div><div style="font:12px/1.3 system-ui; color:#666">Possible <b>duplicate test</b> · Lipid profile</div></div>
+            <div onClick="{{ goMeds }}" style="border:1.5px dashed #c2c2bc; border-radius:12px; padding:11px 12px; margin-bottom:14px; display:flex; gap:9px; align-items:center; cursor:pointer" style-active="background:#f1f1ef"><div style="width:20px; height:20px; border:1.5px solid #999; border-radius:6px; display:flex; align-items:center; justify-content:center; font:12px system-ui; color:#888; flex:none">!</div><div style="font:12px/1.3 system-ui; color:#666">Drug <b>interaction</b> flagged · review meds</div></div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Key readings</div>
+            <div style="display:flex; gap:9px; margin-bottom:16px">
+              <div style="flex:1; border:1px solid #e6e6e2; border-radius:12px; background:#fff; padding:10px 9px"><div style="font:9px system-ui; color:#999">Blood pressure</div><div style="font:17px system-ui; color:#555; margin-top:3px">148/92</div><div style="font:9px system-ui; color:#888; margin-top:1px">&#8593; high</div></div>
+              <div style="flex:1; border:1px solid #e6e6e2; border-radius:12px; background:#fff; padding:10px 9px"><div style="font:9px system-ui; color:#999">Sugar A1c</div><div style="font:17px system-ui; color:#555; margin-top:3px">7.1%</div><div style="font:9px system-ui; color:#aaa; margin-top:1px">&#8594; stable</div></div>
+              <div onClick="{{ goLabs }}" style="flex:1; border:1px solid #e6e6e2; border-radius:12px; background:#fff; padding:10px 9px; cursor:pointer" style-active="background:#f1f1ef"><div style="font:9px system-ui; color:#999">Cholesterol</div><div style="font:17px system-ui; color:#555; margin-top:3px">210</div><div style="font:9px system-ui; color:#888; margin-top:1px">&#8593; vs 188</div></div>
+            </div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Recent results to follow up</div>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <div onClick="{{ openLipid }}" style="display:flex; gap:10px; align-items:center; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:30px; height:38px; border-radius:5px; background:repeating-linear-gradient(45deg,#efefed,#efefed 5px,#e6e6e3 5px,#e6e6e3 10px); border:1px solid #ddd; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Lipid profile added</div><div style="font:10px system-ui; color:#aaa; margin-top:2px">Apollo · Dr. Rao · 18 Jun</div></div><div style="font:15px system-ui; color:#ccc">&#8250;</div></div>
+              <div onClick="{{ openRx }}" style="display:flex; gap:10px; align-items:center; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:30px; height:38px; border-radius:5px; background:repeating-linear-gradient(45deg,#efefed,#efefed 5px,#e6e6e3 5px,#e6e6e3 10px); border:1px solid #ddd; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Prescription added</div><div style="font:10px system-ui; color:#aaa; margin-top:2px">Apollo · Dr. Rao · 12 Jun</div></div><div style="font:15px system-ui; color:#ccc">&#8250;</div></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== CAPTURE FLOW ===== -->
+      <sc-if value="{{ isCapture }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+
+          <sc-if value="{{ capCamera }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; background:#fafaf9">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 10px"><div onClick="{{ goHome }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:15px system-ui; text-align:center; line-height:21px; cursor:pointer">&times;</div><div style="font:600 16px system-ui; color:#444">Capture</div></div>
+              <div style="margin:0 18px; flex:1; border-radius:16px; background:repeating-linear-gradient(45deg,#efefed,#efefed 8px,#e6e6e3 8px,#e6e6e3 16px); border:1px solid #ddd; position:relative; display:flex; align-items:center; justify-content:center">
+                <div style="position:absolute; top:16px; left:16px; width:26px; height:26px; border-left:2px solid #b7b7b3; border-top:2px solid #b7b7b3"></div>
+                <div style="position:absolute; top:16px; right:16px; width:26px; height:26px; border-right:2px solid #b7b7b3; border-top:2px solid #b7b7b3"></div>
+                <div style="position:absolute; bottom:16px; left:16px; width:26px; height:26px; border-left:2px solid #b7b7b3; border-bottom:2px solid #b7b7b3"></div>
+                <div style="position:absolute; bottom:16px; right:16px; width:26px; height:26px; border-right:2px solid #b7b7b3; border-bottom:2px solid #b7b7b3"></div>
+                <div style="font:12px ui-monospace,monospace; color:#a8a8a4; background:#fafaf9cc; padding:6px 11px; border-radius:7px">point at document</div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-around; padding:24px 18px">
+                <div onClick="{{ pickGallery }}" style="display:flex; flex-direction:column; align-items:center; gap:6px; width:64px; cursor:pointer" style-active="opacity:.6"><div style="width:38px; height:38px; border:1.5px solid #c4c4c0; border-radius:9px"></div><div style="font:10px system-ui; color:#9a9a9a">Gallery</div></div>
+                <div onClick="{{ shutter }}" style="width:72px; height:72px; border-radius:50%; background:#555; box-shadow:0 3px 10px rgba(0,0,0,.2); border:4px solid #fff; outline:1.5px solid #ccc; cursor:pointer" style-active="opacity:.8"></div>
+                <div onClick="{{ tMultipage }}" style="display:flex; flex-direction:column; align-items:center; gap:6px; width:64px; cursor:pointer" style-active="opacity:.6"><div style="width:38px; height:38px; border:1.5px solid #c4c4c0; border-radius:9px"></div><div style="font:10px system-ui; color:#9a9a9a">Multi-page</div></div>
+              </div>
+              <div style="text-align:center; font:11px system-ui; color:#aaa; padding-bottom:18px">Original is always kept</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ capExtracting }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; padding:0 20px">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 0 14px"><div onClick="{{ goHome }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:15px system-ui; text-align:center; line-height:21px; cursor:pointer" style-active="background:#f1f1ef">&times;</div><div style="font:600 16px system-ui; color:#444">Reading document&hellip;</div></div>
+              <div style="display:flex; gap:14px; align-items:center; margin-bottom:18px"><div style="width:58px; height:74px; border-radius:9px; background:repeating-linear-gradient(45deg,#efefed,#efefed 6px,#e6e6e3 6px,#e6e6e3 12px); border:1px solid #ddd; flex:none"></div><div style="flex:1"><div style="height:10px; width:78%; background:#dcdcd8; border-radius:5px; margin-bottom:9px"></div><div style="height:7px; background:#ececea; border-radius:5px; overflow:hidden"><div style="width:70%; height:100%; background:#9a9a96"></div></div><div style="font:10px ui-monospace,monospace; color:#aaa; margin-top:8px">extracting fields&hellip;</div></div></div>
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:10px">Detected</div>
+              <div style="display:flex; flex-direction:column; gap:11px">
+                <div style="display:flex; align-items:center; gap:10px"><div style="width:16px; height:16px; border-radius:50%; border:2px solid #888; flex:none"></div><div style="font:13px system-ui; color:#666">Doctor</div><div style="flex:1; height:9px; background:#e2e2de; border-radius:5px"></div></div>
+                <div style="display:flex; align-items:center; gap:10px"><div style="width:16px; height:16px; border-radius:50%; border:2px solid #888; flex:none"></div><div style="font:13px system-ui; color:#666">Date</div><div style="flex:1; height:9px; background:#e2e2de; border-radius:5px"></div></div>
+                <div style="display:flex; align-items:center; gap:10px"><div style="width:16px; height:16px; border-radius:50%; border:2px solid #c8c8c4; flex:none"></div><div style="font:13px system-ui; color:#aaa">Test type</div><div style="flex:1; height:9px; background:#ededeb; border-radius:5px"></div></div>
+              </div>
+              <div style="margin-top:auto; padding-bottom:30px; text-align:center; font:11px system-ui; color:#aaa">You can edit anything in the next step</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ capReview }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ goHome }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">Review details</div></div>
+              <div style="flex:1; overflow-y:auto; padding:0 18px">
+                <div style="display:flex; gap:12px; align-items:center; margin-bottom:14px"><div style="width:48px; height:60px; border-radius:7px; background:repeating-linear-gradient(45deg,#efefed,#efefed 6px,#e6e6e3 6px,#e6e6e3 12px); border:1px solid #ddd; flex:none"></div><div><div style="display:inline-block; font:600 12px system-ui; color:#555; background:#ececea; padding:4px 10px; border-radius:20px">Lab report</div><div onClick="{{ tEdit }}" style="font:11px system-ui; color:#aaa; margin-top:6px; cursor:pointer" style-active="color:#666">auto-detected · tap to change</div></div></div>
+                <div style="display:flex; flex-direction:column; gap:9px">
+                  <div style="border:1px solid #e6e6e2; border-radius:11px; padding:10px 12px; background:#fff"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Patient</div><div style="font:14px system-ui; color:#444; margin-top:3px">Lakshmi Iyer</div></div>
+                  <div style="border:1px solid #e6e6e2; border-radius:11px; padding:10px 12px; background:#fff"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Doctor</div><div style="font:14px system-ui; color:#444; margin-top:3px">Dr. Rao · Cardiology</div></div>
+                  <div style="border:1px solid #e6e6e2; border-radius:11px; padding:10px 12px; background:#fff"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">Hospital · Date</div><div style="font:14px system-ui; color:#444; margin-top:3px">Apollo · 18 Jun 2026</div></div>
+                </div>
+                <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:14px 0 9px">Auto-tags</div>
+                <div style="display:flex; gap:7px; flex-wrap:wrap"><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Cardiology</span><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Apollo</span><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Lipid profile</span><span onClick="{{ tAddTag }}" style="font:12px system-ui; color:#aaa; border:1px dashed #ccc; padding:5px 11px; border-radius:20px; cursor:pointer" style-active="background:#f1f1ef">+ add</span></div>
+              </div>
+              <div style="padding:14px 18px; display:flex; gap:10px; border-top:1px solid #efefed"><div onClick="{{ tEdit }}" style="flex:none; width:92px; height:48px; border:1.5px solid #c4c4c0; border-radius:11px; display:flex; align-items:center; justify-content:center; font:13px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Edit</div><div onClick="{{ toDuplicate }}" style="flex:1; height:48px; background:#555; border-radius:11px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Save record</div></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ capDuplicate }}">
+            <div style="position:absolute; inset:0; background:#6b6b6b; display:flex; flex-direction:column; justify-content:flex-end">
+              <div style="background:#fafaf9; border-radius:22px 22px 0 0; padding:20px 20px 26px">
+                <div style="width:38px; height:4px; border-radius:3px; background:#d8d8d4; margin:0 auto 18px"></div>
+                <div style="display:flex; gap:10px; align-items:flex-start; margin-bottom:13px"><div style="width:28px; height:28px; border:1.5px dashed #b0b0aa; border-radius:7px; flex:none; display:flex; align-items:center; justify-content:center; font:14px system-ui; color:#888">!</div><div style="font:600 16px/1.3 system-ui; color:#3e3e3e">You already have a recent result for this</div></div>
+                <div style="font:13px/1.5 system-ui; color:#888; margin-bottom:16px">A <b style="color:#666">Lipid profile</b> was saved 6 days ago. Is this a new result, or the same document again?</div>
+                <div style="display:flex; gap:11px; margin-bottom:18px">
+                  <div style="flex:1; border:1px solid #e2e2de; border-radius:11px; padding:11px; background:#fff"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:6px">Existing</div><div style="font:13px system-ui; color:#555">12 Jun 2026</div><div style="font:11px system-ui; color:#999; margin-top:3px">Apollo · Dr. Rao</div></div>
+                  <div style="flex:1; border:1.5px solid #9a9a96; border-radius:11px; padding:11px; background:#fff"><div style="font:9px ui-monospace,monospace; color:#888; text-transform:uppercase; margin-bottom:6px">New scan</div><div style="font:13px system-ui; color:#555">18 Jun 2026</div><div style="font:11px system-ui; color:#999; margin-top:3px">Apollo · Dr. Rao</div></div>
+                </div>
+                <div onClick="{{ toSaved }}" style="padding:13px 12px; background:#555; border-radius:11px; text-align:center; cursor:pointer" style-active="opacity:.8"><div style="font:600 14px system-ui; color:#fff">Add as a new result</div><div style="font:11px system-ui; color:#cfcfcf; margin-top:2px">Keeps both &mdash; adds this to the trend</div></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ capSaved }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 24px">
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px">
+                <div style="width:72px; height:72px; border-radius:50%; border:2.5px solid #888; display:flex; align-items:center; justify-content:center; font:34px system-ui; color:#777">&#10003;</div>
+                <div style="font:600 20px system-ui; color:#3e3e3e">Record saved &amp; organized</div>
+                <div style="border:1px solid #e6e6e2; border-radius:14px; padding:16px; background:#fff; width:100%"><div style="display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:11px"><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Cardiology</span><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Apollo</span><span style="font:12px system-ui; color:#666; background:#ececea; padding:5px 11px; border-radius:20px">Lab report</span></div><div style="font:13px system-ui; color:#999">Added to the timeline · 18 Jun</div></div>
+              </div>
+              <div style="width:100%; padding-bottom:34px; display:flex; flex-direction:column; gap:10px">
+                <div onClick="{{ finishCapture }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">View in timeline</div>
+                <div onClick="{{ goHome }}" style="height:50px; border:1.5px solid #c4c4c0; border-radius:12px; display:flex; align-items:center; justify-content:center; font:13px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Done</div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </sc-if>
+
+      <!-- ===== MANUAL ENTRY ===== -->
+      <sc-if value="{{ isManual }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+
+          <sc-if value="{{ manChoose }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ goHome }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">Add manually</div></div>
+              <div style="flex:1; padding:6px 18px; display:flex; flex-direction:column; gap:11px">
+                <div style="font:12px/1.4 system-ui; color:#999; margin-bottom:2px">No document to scan? Add an entry by hand.</div>
+                <div onClick="{{ pickMed }}" style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:14px; background:#fff; cursor:pointer" style-active="background:#f1f1ef"><div style="width:36px; height:36px; border:1.5px solid #c4c4c0; border-radius:10px; flex:none"></div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Medication</div><div style="font:11px/1.3 system-ui; color:#999; margin-top:2px">Name, dose, schedule</div></div><div style="font:16px system-ui; color:#ccc">&#8250;</div></div>
+                <div onClick="{{ pickLab }}" style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:14px; background:#fff; cursor:pointer" style-active="background:#f1f1ef"><div style="width:36px; height:36px; border:1.5px solid #c4c4c0; border-radius:10px; flex:none"></div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Lab / test result</div><div style="font:11px/1.3 system-ui; color:#999; margin-top:2px">A value like BP, sugar, cholesterol</div></div><div style="font:16px system-ui; color:#ccc">&#8250;</div></div>
+                <div onClick="{{ pickVisit }}" style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:14px; background:#fff; cursor:pointer" style-active="background:#f1f1ef"><div style="width:36px; height:36px; border:1.5px solid #c4c4c0; border-radius:10px; flex:none"></div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Visit or hospitalization</div><div style="font:11px/1.3 system-ui; color:#999; margin-top:2px">Doctor, hospital, dates</div></div><div style="font:16px system-ui; color:#ccc">&#8250;</div></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ manMed }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ manualBack }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">New medication</div></div>
+              <div style="flex:1; overflow-y:auto; padding:6px 18px; display:flex; flex-direction:column">
+                <div style="display:flex; flex-direction:column; gap:13px">
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Medicine name</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">Amlodipine</div></div>
+                  <div style="display:flex; gap:10px"><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Dose</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">5 mg</div></div><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Form</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">Tablet</div></div></div>
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">How often</div><div style="display:flex; gap:7px; flex-wrap:wrap"><span onClick="{{ setFreqOnce }}" style="{{ freqOnce }}">Once a day</span><span onClick="{{ setFreqTwice }}" style="{{ freqTwice }}">Twice</span><span onClick="{{ setFreqPrn }}" style="{{ freqPrn }}">As needed</span></div></div>
+                </div>
+                <div style="margin-top:14px; border:1px dashed #d4d4ce; border-radius:11px; background:#fff; padding:11px 12px; display:flex; gap:9px; align-items:center"><div style="width:20px; height:20px; border:1.5px solid #999; border-radius:6px; flex:none; display:flex; align-items:center; justify-content:center; font:12px system-ui; color:#888">!</div><div style="font:11px/1.3 system-ui; color:#888">We&rsquo;ll check this against current meds for interactions.</div></div>
+              </div>
+              <div style="padding:14px 18px; border-top:1px solid #efefed"><div onClick="{{ saveManual }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Add medication</div></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ manLab }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ manualBack }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">New result</div></div>
+              <div style="flex:1; overflow-y:auto; padding:6px 18px; display:flex; flex-direction:column">
+                <div style="display:flex; flex-direction:column; gap:13px">
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">What was measured</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">Total cholesterol</div></div>
+                  <div style="display:flex; gap:10px"><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Value</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">210</div></div><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Unit</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">mg/dL</div></div></div>
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Date taken</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">18 Jun 2026</div></div>
+                </div>
+                <div style="margin-top:14px; border:1px dashed #d4d4ce; border-radius:11px; background:#fff; padding:11px 12px; display:flex; gap:9px; align-items:center"><div style="width:20px; height:20px; border:1.5px solid #c4c4c0; border-radius:50%; flex:none"></div><div style="font:11px/1.3 system-ui; color:#888">Adds to the cholesterol trend chart automatically.</div></div>
+              </div>
+              <div style="padding:14px 18px; border-top:1px solid #efefed"><div onClick="{{ saveManual }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Add result</div></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ manVisit }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ manualBack }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">New visit</div></div>
+              <div style="flex:1; overflow-y:auto; padding:6px 18px; display:flex; flex-direction:column">
+                <div style="display:flex; gap:9px; margin-bottom:14px"><span onClick="{{ setVisOut }}" style="{{ visOut }}">Outpatient</span><span onClick="{{ setVisIn }}" style="{{ visIn }}">Inpatient</span></div>
+                <div style="display:flex; flex-direction:column; gap:13px">
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Reason / type</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">Cardiology follow-up</div></div>
+                  <div style="display:flex; gap:10px"><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Hospital</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">Apollo</div></div><div style="flex:1"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Date</div><div style="height:46px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; display:flex; align-items:center; padding:0 14px; font:14px system-ui; color:#555">18 Jun</div></div></div>
+                  <div><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:7px">Notes (optional)</div><div style="height:60px; border:1px solid #d8d8d4; border-radius:11px; background:#fff; padding:11px 14px; font:13px system-ui; color:#bbb">Add a short note&hellip;</div></div>
+                </div>
+              </div>
+              <div style="padding:14px 18px; border-top:1px solid #efefed"><div onClick="{{ saveManual }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">Add visit</div></div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ manSaved }}">
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 24px">
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px">
+                <div style="width:72px; height:72px; border-radius:50%; border:2.5px solid #888; display:flex; align-items:center; justify-content:center; font:34px system-ui; color:#777">&#10003;</div>
+                <div style="font:600 20px system-ui; color:#3e3e3e">Added to the record</div>
+                <div style="font:13px/1.5 system-ui; color:#999">It&rsquo;s now on the timeline and feeds trends &amp; the doctor summary.</div>
+              </div>
+              <div style="width:100%; padding-bottom:34px; display:flex; flex-direction:column; gap:10px">
+                <div onClick="{{ finishManual }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8">View in timeline</div>
+                <div onClick="{{ goHome }}" style="height:50px; border:1.5px solid #c4c4c0; border-radius:12px; display:flex; align-items:center; justify-content:center; font:13px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Done</div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </sc-if>
+
+      <!-- ===== TIMELINE ===== -->
+      <sc-if value="{{ isTimeline }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 4px 4px; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div>
+            <div style="display:flex; align-items:center; gap:10px; padding:8px 0 12px"><div style="font:600 18px system-ui; color:#444; flex:1">Timeline</div><div onClick="{{ tFilter }}" style="width:30px; height:30px; border:1.5px solid #c4c4c0; border-radius:8px; cursor:pointer" style-active="background:#f1f1ef"></div></div>
+            <div style="height:38px; border:1px solid #e2e2de; border-radius:11px; background:#fff; display:flex; align-items:center; gap:9px; padding:0 12px; margin-bottom:12px"><div style="width:14px; height:14px; border:1.5px solid #bbb; border-radius:50%; flex:none"></div><input value="{{ tlQuery }}" onInput="{{ tlSetQuery }}" placeholder="Search records, doctors, tests" style="flex:1; border:none; outline:none; background:transparent; font:13px system-ui; color:#555" /><sc-if value="{{ tlSearching }}"><div onClick="{{ tlClearQuery }}" style="font:14px system-ui; color:#bbb; cursor:pointer; padding:0 2px" style-active="color:#555">&times;</div></sc-if></div>
+            <sc-if value="{{ tlSearching }}">
+              <div style="font:11px system-ui; color:#999; margin-bottom:12px">{{ tlResultLabel }} for &ldquo;{{ tlQuery }}&rdquo;</div>
+            </sc-if>
+            <sc-if value="{{ tlNoResults }}">
+              <div style="border:1px solid #e6e6e2; border-radius:12px; background:#fff; padding:22px 16px; text-align:center; margin-bottom:12px"><div style="font:13px system-ui; color:#888">No records match your search.</div><div style="font:11px system-ui; color:#aaa; margin-top:5px">Try a doctor, test or hospital name.</div></div>
+            </sc-if>
+            <div style="display:flex; gap:7px; margin-bottom:16px; flex-wrap:wrap"><span onClick="{{ setTlAll }}" style="{{ tlAll }}">All</span><span onClick="{{ setTlRao }}" style="{{ tlRao }}">Dr. Rao</span><span onClick="{{ setTlApollo }}" style="{{ tlApollo }}">Apollo</span><span onClick="{{ setTlCardio }}" style="{{ tlCardio }}">Cardio</span></div>
+            <!-- ALL: activity overview -->
+            <sc-if value="{{ tlIsAll }}">
+              <div style="display:flex; gap:8px; margin-bottom:16px"><div style="flex:1; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px 6px; text-align:center"><div style="font:600 18px system-ui; color:#555">2</div><div style="font:10px system-ui; color:#aaa; margin-top:2px">Visits</div></div><div style="flex:1; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px 6px; text-align:center"><div style="font:600 18px system-ui; color:#555">2</div><div style="font:10px system-ui; color:#aaa; margin-top:2px">Blood tests</div></div><div style="flex:1; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px 6px; text-align:center"><div style="font:600 18px system-ui; color:#555">1</div><div style="font:10px system-ui; color:#aaa; margin-top:2px">Admission</div></div></div>
+            </sc-if>
+
+            <!-- DR. RAO -->
+            <sc-if value="{{ tlIsRao }}">
+              <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:14px; margin-bottom:16px">
+                <div style="display:flex; align-items:center; gap:11px"><div style="width:40px; height:40px; border-radius:50%; background:#ececea; display:flex; align-items:center; justify-content:center; font:600 14px system-ui; color:#888; flex:none">VR</div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Dr. Vikram Rao</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Cardiology · Apollo</div></div><div onClick="{{ setTlAll }}" style="font:11px system-ui; color:#888; text-decoration:underline; cursor:pointer" style-active="color:#555">Show all</div></div>
+                <div style="font:12px system-ui; color:#999; margin:11px 0 9px">2 visits · 1 blood test · since Mar 2026</div>
+                <div style="font:12px/1.55 system-ui; color:#777; padding:10px 0; border-top:1px solid #f0f0ee">&ldquo;BP still elevated at 148/92 despite Amlodipine. LDL high. Continue regimen, recheck in 6 weeks.&rdquo;</div>
+                <div style="display:flex; gap:8px; padding-top:8px; border-top:1px solid #f0f0ee"><div style="flex:1"><div style="font:11px system-ui; color:#aaa">Blood pressure</div><div style="font:14px system-ui; color:#555; margin-top:2px">148/92 &#8593;</div></div><div style="flex:1"><div style="font:11px system-ui; color:#aaa">LDL</div><div style="font:14px system-ui; color:#555; margin-top:2px">138 mg/dL &#8593;</div></div></div>
+              </div>
+            </sc-if>
+
+            <!-- CARDIO -->
+            <sc-if value="{{ tlIsCardio }}">
+              <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:14px; margin-bottom:16px">
+                <div style="display:flex; align-items:center; gap:11px"><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Cardiology</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Dr. Rao (Apollo) · Dr. Menon (City Hospital)</div></div><div onClick="{{ setTlAll }}" style="font:11px system-ui; color:#888; text-decoration:underline; cursor:pointer" style-active="color:#555">Show all</div></div>
+                <div style="font:12px system-ui; color:#999; margin:11px 0 9px">1 follow-up · 1 admission · 1 ECG</div>
+                <div style="font:12px/1.55 system-ui; color:#777; padding:10px 0; border-top:1px solid #f0f0ee">Admitted in May for palpitations &mdash; ECG normal sinus rhythm, stable angina ruled in. Now managed medically with BP still elevated.</div>
+                <div style="display:flex; gap:8px; padding-top:8px; border-top:1px solid #f0f0ee"><div style="flex:1"><div style="font:11px system-ui; color:#aaa">BP</div><div style="font:14px system-ui; color:#555; margin-top:2px">148/92</div></div><div style="flex:1"><div style="font:11px system-ui; color:#aaa">Rhythm</div><div style="font:14px system-ui; color:#555; margin-top:2px">Normal sinus</div></div><div style="flex:1"><div style="font:11px system-ui; color:#aaa">Heart rate</div><div style="font:14px system-ui; color:#555; margin-top:2px">78 bpm</div></div></div>
+              </div>
+            </sc-if>
+
+            <!-- APOLLO -->
+            <sc-if value="{{ tlIsApollo }}">
+              <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:14px; margin-bottom:16px">
+                <div style="display:flex; align-items:center; gap:11px"><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Apollo Hospital</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Cardiology · Endocrinology</div></div><div onClick="{{ setTlAll }}" style="font:11px system-ui; color:#888; text-decoration:underline; cursor:pointer" style-active="color:#555">Show all</div></div>
+                <div style="font:12px system-ui; color:#999; margin:11px 0 9px">2 visits · 2 blood tests across 2 departments</div>
+                <div style="display:flex; gap:8px"><div style="flex:1; padding:9px 10px; background:#f7f7f5; border-radius:9px"><div style="font:12px system-ui; color:#555">Dr. Rao</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Cardiology · BP, lipids</div></div><div style="flex:1; padding:9px 10px; background:#f7f7f5; border-radius:9px"><div style="font:12px system-ui; color:#555">Dr. Iyer</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Endocrine · HbA1c 7.1%</div></div></div>
+              </div>
+            </sc-if>
+
+            <!-- JUNE EVENTS -->
+            <sc-if value="{{ tlHasJune }}">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:10px">June 2026</div>
+              <sc-for list="{{ tlJune }}" as="ev" hint-placeholder-count="3">
+                <div style="display:flex; gap:12px; margin-bottom:12px"><div style="display:flex; flex-direction:column; align-items:center; flex:none; width:16px"><div style="width:11px; height:11px; border-radius:50%; background:#999; border:2px solid #fff; outline:1px solid #ccc"></div><div style="flex:1; width:2px; background:#e4e4e0"></div></div><div onClick="{{ ev.open }}" style="flex:1; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:11px 12px; cursor:pointer" style-active="background:#f1f1ef"><div style="display:flex; align-items:center; gap:8px"><div style="font:13px system-ui; color:#555; flex:1">{{ ev.title }}</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 8px; border-radius:10px; white-space:nowrap">{{ ev.badge }}</span></div><div style="font:11px system-ui; color:#999; margin-top:3px">{{ ev.sub }}</div><sc-if value="{{ ev.hasNote }}"><div style="font:12px/1.5 system-ui; color:#777; margin-top:8px; padding-top:8px; border-top:1px solid #f0f0ee">{{ ev.note }}</div></sc-if><div style="font:11px system-ui; color:#bbb; margin-top:7px">{{ ev.date }}</div></div></div>
+              </sc-for>
+            </sc-if>
+
+            <!-- MAY EVENTS -->
+            <sc-if value="{{ tlHasMay }}">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:4px 0 10px">May 2026</div>
+              <sc-for list="{{ tlMay }}" as="ev" hint-placeholder-count="2">
+                <div style="display:flex; gap:12px; margin-bottom:12px"><div style="display:flex; flex-direction:column; align-items:center; flex:none; width:16px"><div style="width:11px; height:11px; border-radius:50%; background:#999; border:2px solid #fff; outline:1px solid #ccc"></div><div style="flex:1; width:2px; background:#e4e4e0"></div></div><div onClick="{{ ev.open }}" style="flex:1; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:11px 12px; cursor:pointer" style-active="background:#f1f1ef"><div style="display:flex; align-items:center; gap:8px"><div style="font:13px system-ui; color:#555; flex:1">{{ ev.title }}</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 8px; border-radius:10px; white-space:nowrap">{{ ev.badge }}</span></div><div style="font:11px system-ui; color:#999; margin-top:3px">{{ ev.sub }}</div><sc-if value="{{ ev.hasNote }}"><div style="font:12px/1.5 system-ui; color:#777; margin-top:8px; padding-top:8px; border-top:1px solid #f0f0ee">{{ ev.note }}</div></sc-if><div style="font:11px system-ui; color:#bbb; margin-top:7px">{{ ev.date }}</div></div></div>
+              </sc-for>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== RECORD DETAIL ===== -->
+      <sc-if value="{{ isRecord }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 10px"><div onClick="{{ goTimeline }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444; flex:1">{{ recTitle }}</div><div onClick="{{ tShareRec }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; cursor:pointer" style-active="background:#f1f1ef"></div></div>
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div onClick="{{ tOriginal }}" style="height:140px; border-radius:11px; background:repeating-linear-gradient(45deg,#efefed,#efefed 8px,#e6e6e3 8px,#e6e6e3 16px); border:1px solid #ddd; display:flex; align-items:center; justify-content:center; font:12px ui-monospace,monospace; color:#a8a8a4; margin-bottom:7px; cursor:pointer" style-active="opacity:.8">original scan</div>
+            <div onClick="{{ tOriginal }}" style="text-align:center; font:12px system-ui; color:#888; margin-bottom:16px; text-decoration:underline; cursor:pointer" style-active="color:#555">{{ recPages }}</div>
+            <sc-if value="{{ recIsLipid }}">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Extracted values</div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:16px"><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Total cholesterol</span><span>210 &#8593;</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>HDL</span><span>42</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; font:13px system-ui; color:#666"><span>LDL</span><span>138 &#8593;</span></div></div>
+            </sc-if>
+            <sc-if value="{{ recIsRx }}">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Prescribed medications</div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:16px"><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Amlodipine 5mg</span><span>1× daily</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Metformin 500mg</span><span>2× daily</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; font:13px system-ui; color:#666"><span>Atorvastatin 10mg</span><span>1× night</span></div></div>
+            </sc-if>
+            <sc-if value="{{ recIsEcg }}">
+              <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Discharge summary</div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:16px"><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Diagnosis</span><span>Stable angina</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Heart rate</span><span>78 bpm</span></div><div style="display:flex; justify-content:space-between; padding:9px 0; font:13px system-ui; color:#666"><span>Rhythm</span><span>Normal sinus</span></div></div>
+            </sc-if>
+            <div style="border:1px solid #e6e6e2; border-radius:12px; background:#fff; padding:13px"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:9px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase">What this means</div><div style="display:flex; border:1px solid #d8d8d4; border-radius:20px; overflow:hidden"><span onClick="{{ setLangEn }}" style="{{ langEn }}">EN</span><span onClick="{{ setLangTa }}" style="{{ langTa }}">&#2980;&#2990;&#3007;&#2996;&#3021;</span></div></div><div style="height:8px; width:92%; background:#dcdcd8; border-radius:5px; margin-bottom:7px"></div><div style="height:8px; width:84%; background:#dcdcd8; border-radius:5px; margin-bottom:7px"></div><div style="height:8px; width:60%; background:#dcdcd8; border-radius:5px"></div></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== DOCTOR SUMMARY ===== -->
+      <sc-if value="{{ isSummary }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 8px"><div onClick="{{ goLabs }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">Doctor summary</div></div>
+          <div style="padding:0 18px 10px; display:flex; align-items:center; gap:9px"><span style="font:9px system-ui; color:#fff; background:#9a9a96; padding:3px 9px; border-radius:11px">CURRENT</span><span style="font:11px system-ui; color:#aaa">updated 18 Jun · auto-generated</span></div>
+          <div style="padding:0 0 12px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; padding:0 18px 7px">Care team · filter by doctor</div><div style="display:flex; gap:8px; overflow-x:auto; padding:0 18px"><span onClick="{{ setDocRao }}" style="{{ docRao }}; white-space:nowrap">Dr. Rao · Cardiology</span><span onClick="{{ setDocIyer }}" style="{{ docIyer }}; white-space:nowrap">Dr. Iyer · Endocrine</span><span onClick="{{ setDocMenon }}" style="{{ docMenon }}; white-space:nowrap">Dr. Menon · Physician</span></div></div>
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:6px">Patient</div><div style="font:14px system-ui; color:#555">Lakshmi Iyer · F · 68</div><div style="font:11px system-ui; color:#aaa; margin-top:3px">Allergies: Penicillin</div></div>
+
+            <!-- ===== DR. RAO ===== -->
+            <sc-if value="{{ docIsRao }}">
+              <div style="display:flex; align-items:center; gap:11px; margin:4px 0 12px"><div style="width:44px; height:44px; border-radius:50%; background:#ececea; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#888; flex:none">VR</div><div><div style="font:600 14px system-ui; color:#444">Dr. Vikram Rao</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Cardiology · Apollo Hospital</div></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:6px">Last visit · 18 Jun 2026</div><div style="font:13px/1.55 system-ui; color:#666">BP still elevated at 148/92 despite Amlodipine. Lipids trending down but LDL remains high. Continue current regimen, recheck in 6 weeks. No chest pain or breathlessness reported.</div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Diagnosis</div><div style="display:flex; gap:7px; flex-wrap:wrap"><span style="font:12px system-ui; color:#666; background:#ececea; padding:4px 11px; border-radius:20px">Hypertension</span><span style="font:12px system-ui; color:#666; background:#ececea; padding:4px 11px; border-radius:20px">Dyslipidemia</span></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:7px 0">Medications prescribed</div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Amlodipine 5mg</span><span>1× morning</span></div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Atorvastatin 10mg</span><span>1× night</span></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:7px 0">Labs ordered</div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Total cholesterol</span><span>210 mg/dL &#8593;</span></div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>LDL</span><span>138 mg/dL &#8593;</span></div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Blood pressure</span><span>148/92</span></div></div>
+              <div onClick="{{ openLipid }}" style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:11px 12px; margin-bottom:10px; display:flex; align-items:center; gap:10px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:28px; height:34px; border-radius:5px; background:repeating-linear-gradient(45deg,#efefed,#efefed 5px,#e6e6e3 5px,#e6e6e3 10px); border:1px solid #ddd; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Lipid profile · report</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">18 Jun · 2 pages</div></div><div style="font:15px system-ui; color:#ccc">&#8250;</div></div>
+              <div style="border:1.5px dashed #d8d8d4; border-radius:11px; padding:11px 12px; font:12px/1.4 system-ui; color:#888"><b style="color:#666">Follow-up:</b> Recheck BP &amp; lipids in 6 weeks · 30 Jul 2026</div>
+            </sc-if>
+
+            <!-- ===== DR. IYER ===== -->
+            <sc-if value="{{ docIsIyer }}">
+              <div style="display:flex; align-items:center; gap:11px; margin:4px 0 12px"><div style="width:44px; height:44px; border-radius:50%; background:#ececea; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#888; flex:none">SI</div><div><div style="font:600 14px system-ui; color:#444">Dr. Sunita Iyer</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">Endocrinology · Apollo Hospital</div></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:6px">Last visit · 12 Jun 2026</div><div style="font:13px/1.55 system-ui; color:#666">HbA1c improved to 7.1% from 7.8%. Continue Metformin; reinforce diet and daily walking. Fasting glucose well controlled. Watch for interaction flagged with cardiology meds.</div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Diagnosis</div><div style="display:flex; gap:7px; flex-wrap:wrap"><span style="font:12px system-ui; color:#666; background:#ececea; padding:4px 11px; border-radius:20px">Diabetes T2</span></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:7px 0">Medications prescribed</div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Metformin 500mg</span><span>2× daily</span></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:7px 0">Labs ordered</div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>HbA1c</span><span>7.1% &#8595;</span></div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Fasting glucose</span><span>112 mg/dL</span></div></div>
+              <div style="border:1.5px dashed #d8d8d4; border-radius:11px; padding:11px 12px; font:12px/1.4 system-ui; color:#888"><b style="color:#666">Follow-up:</b> Repeat HbA1c in 3 months · 12 Sep 2026</div>
+            </sc-if>
+
+            <!-- ===== DR. MENON ===== -->
+            <sc-if value="{{ docIsMenon }}">
+              <div style="display:flex; align-items:center; gap:11px; margin:4px 0 12px"><div style="width:44px; height:44px; border-radius:50%; background:#ececea; display:flex; align-items:center; justify-content:center; font:600 15px system-ui; color:#888; flex:none">AM</div><div><div style="font:600 14px system-ui; color:#444">Dr. Arjun Menon</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">General Physician · City Hospital</div></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:6px">Admission · 26–28 May 2026</div><div style="font:13px/1.55 system-ui; color:#666">Admitted with palpitations. ECG showed normal sinus rhythm; stable angina ruled in. Discharged stable on day 3, referred back to cardiology for ongoing management.</div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:8px">Diagnosis</div><div style="display:flex; gap:7px; flex-wrap:wrap"><span style="font:12px system-ui; color:#666; background:#ececea; padding:4px 11px; border-radius:20px">Stable angina</span></div></div>
+              <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:6px 12px; margin-bottom:10px"><div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin:7px 0">Investigations</div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>Heart rate</span><span>78 bpm</span></div><div style="display:flex; justify-content:space-between; padding:8px 0; border-top:1px solid #f0f0ee; font:13px system-ui; color:#666"><span>ECG rhythm</span><span>Normal sinus</span></div></div>
+              <div onClick="{{ openEcg }}" style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:11px 12px; margin-bottom:10px; display:flex; align-items:center; gap:10px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:28px; height:34px; border-radius:5px; background:repeating-linear-gradient(45deg,#efefed,#efefed 5px,#e6e6e3 5px,#e6e6e3 10px); border:1px solid #ddd; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">ECG · discharge papers</div><div style="font:11px system-ui; color:#aaa; margin-top:2px">28 May · 3 pages</div></div><div style="font:15px system-ui; color:#ccc">&#8250;</div></div>
+              <div style="border:1.5px dashed #d8d8d4; border-radius:11px; padding:11px 12px; font:12px/1.4 system-ui; color:#888"><b style="color:#666">Follow-up:</b> Cardiology review completed · see Dr. Rao</div>
+            </sc-if>
+          </div>
+          <div style="padding:12px 18px; border-top:1px solid #efefed; background:#fafaf9"><div onClick="{{ tSharePdf }}" style="height:50px; background:#555; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:9px; font:600 14px system-ui; color:#fff; cursor:pointer" style-active="opacity:.8"><div style="width:17px; height:17px; border:1.5px solid #fff; border-radius:5px"></div>Share / print</div></div>
+        </div>
+      </sc-if>
+
+      <!-- ===== MEDS ===== -->
+      <sc-if value="{{ isMeds }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="padding:12px 18px 4px"><div style="display:flex; justify-content:space-between; align-items:center; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div></div>
+          <div style="padding:6px 18px 10px; font:600 18px system-ui; color:#444">Medications</div>
+          <div style="padding:0 18px 12px; display:flex; gap:0; border-bottom:1px solid #ececea"><div onClick="{{ setMedCur }}" style="{{ medCurStyle }}">Current</div><div onClick="{{ setMedHist }}" style="{{ medHistStyle }}">History</div></div>
+          <div style="flex:1; overflow-y:auto; padding:14px 18px 90px">
+            <sc-if value="{{ medCurOn }}">
+              <div onClick="{{ tInteraction }}" style="border:1.5px dashed #c2c2bc; border-radius:11px; padding:11px 12px; margin-bottom:14px; display:flex; gap:9px; align-items:center; cursor:pointer" style-active="background:#f1f1ef"><div style="width:20px; height:20px; border:1.5px solid #999; border-radius:6px; display:flex; align-items:center; justify-content:center; font:12px system-ui; color:#888; flex:none">!</div><div style="font:12px/1.3 system-ui; color:#666"><b>Interaction:</b> Amlodipine + Atorvastatin &mdash; review</div></div>
+              <div style="display:flex; flex-direction:column; gap:11px">
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="display:flex; justify-content:space-between; align-items:start"><div><div style="font:14px system-ui; color:#555">Amlodipine 5mg</div><div style="font:11px system-ui; color:#999; margin-top:3px">1× daily · morning</div></div><span style="font:9px system-ui; color:#888; border:1px dashed #bbb; padding:3px 8px; border-radius:10px">interaction</span></div><div style="font:11px system-ui; color:#bbb; margin-top:7px">Dr. Rao · since Mar 2026</div></div>
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="font:14px system-ui; color:#555">Metformin 500mg</div><div style="font:11px system-ui; color:#999; margin-top:3px">2× daily</div><div style="font:11px system-ui; color:#bbb; margin-top:7px">Dr. Rao · since Jan 2025</div></div>
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="display:flex; justify-content:space-between; align-items:start"><div><div style="font:14px system-ui; color:#555">Atorvastatin 10mg</div><div style="font:11px system-ui; color:#999; margin-top:3px">1× daily · night</div></div><span style="font:9px system-ui; color:#888; border:1px dashed #bbb; padding:3px 8px; border-radius:10px">duplicate?</span></div><div style="font:11px system-ui; color:#bbb; margin-top:7px">Dr. Iyer · since May 2026</div></div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ medHistOn }}">
+              <div style="display:flex; flex-direction:column; gap:11px">
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="display:flex; justify-content:space-between; align-items:start"><div><div style="font:14px system-ui; color:#777">Telmisartan 40mg</div><div style="font:11px system-ui; color:#999; margin-top:3px">Stopped · replaced by Amlodipine</div></div><span style="font:9px system-ui; color:#999; background:#ececea; padding:3px 8px; border-radius:10px">stopped</span></div><div style="font:11px system-ui; color:#bbb; margin-top:7px">Dr. Rao · Jan – Mar 2026</div></div>
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="display:flex; justify-content:space-between; align-items:start"><div><div style="font:14px system-ui; color:#777">Aspirin 75mg</div><div style="font:11px system-ui; color:#999; margin-top:3px">Course completed</div></div><span style="font:9px system-ui; color:#999; background:#ececea; padding:3px 8px; border-radius:10px">ended</span></div><div style="font:11px system-ui; color:#bbb; margin-top:7px">City Hosp · May 2026</div></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== LABS ===== -->
+      <sc-if value="{{ isLabs }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="padding:12px 18px 4px"><div style="display:flex; justify-content:space-between; align-items:center; font:600 12px system-ui; color:#a0a0a0"><span>9:41</span><div style="display:flex; gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span><span style="width:5px;height:5px;border-radius:50%;background:#cfcfcf"></span></div></div></div>
+          <div style="padding:6px 18px 10px; display:flex; align-items:center; gap:10px"><div style="font:600 18px system-ui; color:#444; flex:1">Lab results</div><div onClick="{{ goSummary }}" style="font:12px system-ui; color:#777; border:1px solid #d4d4d0; border-radius:20px; padding:6px 12px; cursor:pointer" style-active="background:#f1f1ef">Doctor summary</div></div>
+          <div style="padding:0 18px 14px; display:flex; gap:7px"><span onClick="{{ setLabChol }}" style="{{ labChol }}">Cholesterol</span><span onClick="{{ setLabBp }}" style="{{ labBp }}">BP</span><span onClick="{{ setLabSugar }}" style="{{ labSugar }}">Sugar</span></div>
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:14px 14px 12px; margin-bottom:12px">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px"><div style="font:13px system-ui; color:#777">{{ labTitle }}</div><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 9px; border-radius:11px">{{ labStatus }}</span></div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px"><div style="font:28px system-ui; color:#555">{{ labValue }}<span style="font-size:12px; color:#aaa"> {{ labUnit }}</span></div><div style="font:11px system-ui; color:#888">{{ labDelta }}</div></div>
+              <div style="font:10px system-ui; color:#bbb; margin-bottom:12px">{{ labRange }}</div>
+              <div style="display:flex; align-items:flex-end; gap:10px; height:90px; border-bottom:1px solid #ececea">
+                <sc-for list="{{ labBars }}" as="bar" hint-placeholder-count="5">
+                  <div style="{{ bar.style }}"></div>
+                </sc-for>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:6px">
+                <sc-for list="{{ labBars }}" as="bar" hint-placeholder-count="5">
+                  <div style="flex:1; text-align:center; font:9px system-ui; color:#bbb">{{ bar.label }}</div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; margin-bottom:16px; font:12px/1.55 system-ui; color:#777">{{ labSummary }}</div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">All readings</div>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:18px">
+              <sc-for list="{{ labReadings }}" as="r" hint-placeholder-count="5">
+                <div style="display:flex; justify-content:space-between; align-items:center; border:1px solid #e6e6e2; border-radius:9px; background:#fff; padding:10px 12px; font:13px system-ui; color:#666"><span>{{ r.date }}</span><span>{{ r.value }} {{ r.flag }}</span></div>
+              </sc-for>
+            </div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">How to improve &mdash; doctor&rsquo;s advice</div>
+            <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:6px 14px; margin-bottom:16px">
+              <sc-for list="{{ labRecs }}" as="rec" hint-placeholder-count="4">
+                <div style="display:flex; gap:11px; align-items:flex-start; padding:11px 0; border-top:1px solid #f3f3f1"><div style="width:18px; height:18px; border:1.5px solid #aaa; border-radius:50%; flex:none; margin-top:1px; display:flex; align-items:center; justify-content:center; font:11px system-ui; color:#888">&#10003;</div><div style="flex:1; font:13px/1.5 system-ui; color:#666">{{ rec }}</div></div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex; gap:9px"><div onClick="{{ goHistory }}" style="flex:1; border:1.5px solid #c4c4c0; border-radius:11px; padding:13px; text-align:center; font:13px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">History</div><div onClick="{{ goSharing }}" style="flex:1; border:1.5px solid #c4c4c0; border-radius:11px; padding:13px; text-align:center; font:13px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Sharing</div></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== HISTORY ===== -->
+      <sc-if value="{{ isHistory }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 10px"><div onClick="{{ goLabs }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">{{ histCond }} · history</div></div>
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="border:1px solid #e6e6e2; border-radius:13px; background:#fff; padding:14px; margin-bottom:18px">
+              <div style="font:600 15px system-ui; color:#444">{{ histCond }}</div>
+              <div style="font:11px system-ui; color:#aaa; margin-top:2px">{{ histCondSub }}</div>
+              <div style="font:12px/1.55 system-ui; color:#777; margin:11px 0 12px">{{ histOverview }}</div>
+              <div style="display:flex; gap:8px">
+                <sc-for list="{{ histStats }}" as="s" hint-placeholder-count="3">
+                  <div style="flex:1; background:#f7f7f5; border-radius:9px; padding:9px 6px; text-align:center"><div style="font:13px system-ui; color:#555">{{ s.v }}</div><div style="font:9px system-ui; color:#aaa; margin-top:3px">{{ s.k }}</div></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Medications</div>
+            <div style="display:flex; flex-direction:column; gap:9px; margin-bottom:18px">
+              <sc-for list="{{ histMedsList }}" as="m" hint-placeholder-count="1">
+                <div style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px"><div style="font:14px system-ui; color:#555">{{ m.name }}</div><div style="font:11px system-ui; color:#999; margin-top:3px">{{ m.detail }}</div><div style="font:11px system-ui; color:#bbb; margin-top:6px">{{ m.by }}</div></div>
+              </sc-for>
+            </div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Lab results &amp; paperwork</div>
+            <div style="display:flex; flex-direction:column; gap:9px; margin-bottom:18px">
+              <sc-for list="{{ histLabsList }}" as="l" hint-placeholder-count="2">
+                <div onClick="{{ l.open }}" style="display:flex; align-items:center; gap:10px; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:11px 12px; cursor:pointer" style-active="background:#f1f1ef"><div style="flex:1"><div style="font:13px system-ui; color:#555">{{ l.name }}</div><div style="font:11px system-ui; color:#999; margin-top:2px">{{ l.date }}</div></div><div style="font:13px system-ui; color:#666">{{ l.result }}</div><sc-if value="{{ l.hasDoc }}"><span style="font:9px system-ui; color:#888; background:#f0f0ee; padding:3px 8px; border-radius:10px; white-space:nowrap">Report &#8250;</span></sc-if></div>
+              </sc-for>
+            </div>
+
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:9px">Hospitals &amp; visits</div>
+            <div style="display:flex; flex-direction:column; gap:9px">
+              <sc-for list="{{ histVisitsList }}" as="v" hint-placeholder-count="2">
+                <div onClick="{{ v.open }}" style="border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:12px; cursor:pointer" style-active="background:#f1f1ef"><div style="display:flex; justify-content:space-between"><div style="font:14px system-ui; color:#555">{{ v.place }}</div><div style="font:11px system-ui; color:#bbb">{{ v.date }}</div></div><div style="font:11px system-ui; color:#999; margin-top:5px">{{ v.dept }}</div><div style="display:flex; gap:6px; margin-top:9px"><span style="font:9px system-ui; color:#888; background:#ececea; padding:3px 8px; border-radius:10px">{{ v.badge }}</span><sc-if value="{{ v.hasDoc }}"><span style="font:9px system-ui; color:#888; background:#ececea; padding:3px 8px; border-radius:10px">Paperwork &#8250;</span></sc-if></div></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== SHARING ===== -->
+      <sc-if value="{{ isSharing }}">
+        <div style="position:absolute; inset:0; display:flex; flex-direction:column">
+          <div style="display:flex; align-items:center; gap:12px; padding:14px 18px 12px"><div onClick="{{ goLabs }}" style="width:24px; height:24px; border:1.5px solid #c4c4c0; border-radius:7px; color:#aaa; font:16px system-ui; text-align:center; line-height:21px; cursor:pointer">&#8249;</div><div style="font:600 16px system-ui; color:#444">Sharing &amp; access</div></div>
+          <div style="flex:1; overflow-y:auto; padding:0 18px 90px">
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:10px">People with access</div>
+            <div style="display:flex; flex-direction:column; gap:9px; margin-bottom:16px">
+              <div style="display:flex; align-items:center; gap:10px; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px 12px"><div style="width:30px; height:30px; border-radius:50%; background:#e2e2de; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Priya (you)</div><div style="font:11px system-ui; color:#999">Caretaker · local</div></div><span style="font:9px system-ui; color:#fff; background:#9a9a96; padding:3px 8px; border-radius:10px">FULL</span></div>
+              <div style="display:flex; align-items:center; gap:10px; border:1px solid #e6e6e2; border-radius:11px; background:#fff; padding:10px 12px"><div style="width:30px; height:30px; border-radius:50%; background:#e2e2de; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Karthik</div><div style="font:11px system-ui; color:#999">Caretaker · remote</div></div><span style="font:9px system-ui; color:#777; border:1px solid #ccc; padding:3px 8px; border-radius:10px">VIEW</span></div>
+              <div style="display:flex; align-items:center; gap:10px; border:1px dashed #d4d4ce; border-radius:11px; background:#fff; padding:10px 12px"><div style="width:30px; height:30px; border-radius:50%; background:#eceae6; flex:none"></div><div style="flex:1"><div style="font:13px system-ui; color:#555">Dr. Rao</div><div style="font:11px system-ui; color:#999">Temporary · expires 19 Jun</div></div></div>
+            </div>
+            <div onClick="{{ tInvite }}" style="height:46px; border:1.5px solid #555; border-radius:11px; display:flex; align-items:center; justify-content:center; gap:8px; font:13px system-ui; color:#555; margin-bottom:18px; cursor:pointer" style-active="background:#f1f1ef"><div style="font:20px system-ui; line-height:0">+</div>Invite caretaker</div>
+            <div style="font:9px ui-monospace,monospace; color:#aaa; text-transform:uppercase; margin-bottom:10px">Notify remote caretaker</div>
+            <div style="display:flex; flex-direction:column; gap:11px">
+              <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#666">New record added</div><div onClick="{{ toggleRecord }}" style="{{ togRecord }}"><div style="{{ knobRecord }}"></div></div></div>
+              <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#666">Alerts &amp; flags</div><div onClick="{{ toggleAlerts }}" style="{{ togAlerts }}"><div style="{{ knobAlerts }}"></div></div></div>
+              <div style="display:flex; justify-content:space-between; align-items:center"><div style="font:13px system-ui; color:#666">Appointments</div><div onClick="{{ toggleAppts }}" style="{{ togAppts }}"><div style="{{ knobAppts }}"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== TAB BAR ===== -->
+      <sc-if value="{{ showTab }}">
+        <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-around; padding:10px 10px 16px; border-top:1px solid #efefed; background:#fff; z-index:6">
+          <div onClick="{{ goHome }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; width:52px; cursor:pointer"><sc-if value="{{ tabHome }}"><div style="width:22px; height:22px; background:#888; border-radius:6px"></div></sc-if><sc-if value="{{ notTabHome }}"><div style="width:22px; height:22px; border:1.5px solid #bbb; border-radius:6px"></div></sc-if><div style="font:9px system-ui; color:#777">Home</div></div>
+          <div onClick="{{ goTimeline }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; width:52px; cursor:pointer"><sc-if value="{{ tabTimeline }}"><div style="width:22px; height:22px; background:#888; border-radius:6px"></div></sc-if><sc-if value="{{ notTabTimeline }}"><div style="width:22px; height:22px; border:1.5px solid #bbb; border-radius:6px"></div></sc-if><div style="font:9px system-ui; color:#777">Timeline</div></div>
+          <div onClick="{{ openAdd }}" style="width:54px; height:54px; border-radius:50%; background:#555; margin-top:-20px; display:flex; align-items:center; justify-content:center; color:#fff; font:300 30px system-ui; box-shadow:0 4px 10px rgba(0,0,0,.22); cursor:pointer" style-active="opacity:.85">+</div>
+          <div onClick="{{ goMeds }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; width:52px; cursor:pointer"><sc-if value="{{ tabMeds }}"><div style="width:22px; height:22px; background:#888; border-radius:6px"></div></sc-if><sc-if value="{{ notTabMeds }}"><div style="width:22px; height:22px; border:1.5px solid #bbb; border-radius:6px"></div></sc-if><div style="font:9px system-ui; color:#777">Meds</div></div>
+          <div onClick="{{ goMore }}" style="display:flex; flex-direction:column; align-items:center; gap:5px; width:52px; cursor:pointer"><sc-if value="{{ tabMore }}"><div style="width:22px; height:22px; background:#888; border-radius:6px"></div></sc-if><sc-if value="{{ notTabMore }}"><div style="width:22px; height:22px; border:1.5px solid #bbb; border-radius:6px"></div></sc-if><div style="font:9px system-ui; color:#777">More</div></div>
+        </div>
+      </sc-if>
+
+      <!-- ===== ADD SHEET ===== -->
+      <sc-if value="{{ addSheet }}">
+        <div onClick="{{ closeAdd }}" style="position:absolute; inset:0; background:rgba(40,40,40,.45); z-index:9; display:flex; align-items:center; justify-content:center; padding:0 24px">
+          <div style="width:100%; background:#fff; border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.24); overflow:hidden">
+            <div style="padding:18px 18px 4px; text-align:center; font:600 16px system-ui; color:#3e3e3e">Add to record</div>
+            <div style="padding:12px 16px 6px; display:flex; flex-direction:column; gap:12px">
+              <div onClick="{{ startScan }}" style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:13px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:40px; height:40px; border:1.5px solid #555; border-radius:10px; flex:none; display:flex; align-items:center; justify-content:center"><div style="width:19px; height:19px; border:2px solid #666; border-radius:6px"></div></div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Capture a document</div><div style="font:11px/1.35 system-ui; color:#999; margin-top:3px">Photograph a report, prescription or scan &mdash; we read the details for you.</div></div></div>
+              <label style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:13px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:40px; height:40px; border:1.5px solid #555; border-radius:10px; flex:none; display:flex; align-items:center; justify-content:center; position:relative"><div style="width:15px; height:18px; border:2px solid #666; border-radius:3px"></div><div style="position:absolute; width:2px; height:9px; background:#666"></div><div style="position:absolute; width:8px; height:8px; border-left:2px solid #666; border-bottom:2px solid #666; transform:rotate(-45deg); margin-top:5px"></div></div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Upload a file</div><div style="font:11px/1.35 system-ui; color:#999; margin-top:3px">Choose a PDF or photo from this device &mdash; we read the details for you.</div></div><input type="file" accept=".pdf,image/*" onChange="{{ startUpload }}" style="display:none" /></label>
+              <div onClick="{{ startManual }}" style="display:flex; gap:12px; align-items:center; border:1px solid #e2e2de; border-radius:13px; padding:13px; cursor:pointer" style-active="background:#f1f1ef"><div style="width:40px; height:40px; border:1.5px solid #c4c4c0; border-radius:10px; flex:none; display:flex; align-items:center; justify-content:center; font:300 24px system-ui; color:#888">+</div><div style="flex:1"><div style="font:600 14px system-ui; color:#444">Add a record manually</div><div style="font:11px/1.35 system-ui; color:#999; margin-top:3px">Enter a medication, result or visit by hand.</div></div></div>
+            </div>
+            <div onClick="{{ closeAdd }}" style="border-top:1px solid #efefed; margin-top:14px; padding:15px; text-align:center; font:600 14px system-ui; color:#777; cursor:pointer" style-active="background:#f1f1ef">Cancel</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== TOAST ===== -->
+      <sc-if value="{{ hasToast }}">
+        <div style="position:absolute; left:0; right:0; bottom:96px; display:flex; justify-content:center; z-index:20; pointer-events:none; animation:fade .15s ease">
+          <div style="background:#3e3e3e; color:#fff; font:13px system-ui; padding:11px 18px; border-radius:22px; box-shadow:0 6px 18px rgba(0,0,0,.28); max-width:80%; text-align:center">{{ toast }}</div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:432,&quot;height&quot;:912}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'login', cap: 'camera', man: 'choose', addSheet: false,
+    showPw: false, medTab: 'current', tlFilter: 'all', labMetric: 'chol',
+    histCat: 'hospital', histType: 'inpatient', visitType: 'outpatient',
+    medFreq: 'once', recLang: 'en', recId: 'lipid', docFilter: 'rao', recId: 'lipid', tlQuery: '',
+    notif: { record: true, alerts: true, appts: false },
+    toast: null,
+  };
+
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._toast); }
+
+  set(patch) { this.setState(patch); }
+  toggleNotif(k) { this.setState(s => ({ notif: { ...s.notif, [k]: !s.notif[k] } })); }
+  showToast(msg) { clearTimeout(this._toast); this.setState({ toast: msg }); this._toast = setTimeout(() => this.setState({ toast: null }), 1700); }
+  toCamera() { clearTimeout(this._t); this.setState({ screen: 'capture', cap: 'camera' }); }
+  openRecord(id) { clearTimeout(this._t); this.setState({ screen: 'record', recId: id, addSheet: false }); }
+
+  histVals() {
+    const H = {
+      chol: {
+        cond: 'High cholesterol', condSub: 'Dyslipidemia · managed by Dr. Rao',
+        overview: 'Flagged in March 2026 and trending upward. Managed with a statin plus diet and exercise under Cardiology.',
+        stats: [{ k: 'First flagged', v: 'Mar 2026' }, { k: 'Latest', v: '210 mg/dL' }, { k: 'Readings', v: '5' }],
+        meds: [{ name: 'Atorvastatin 10mg', detail: '1× daily · night', by: 'Dr. Rao · since May 2026' }],
+        labs: [{ name: 'Lipid profile', date: '18 Jun 2026', result: '210 \u2191', hasDoc: true, rec: 'lipid' }, { name: 'Lipid profile', date: '02 May 2026', result: '196', hasDoc: false, rec: null }],
+        visits: [{ place: 'Apollo Hospital', dept: 'Cardiology · Dr. Rao', date: '18 Jun', badge: 'Follow-up', hasDoc: false, rec: null }, { place: 'Apollo Hospital', dept: 'Cardiology · Dr. Rao', date: '12 Jun', badge: 'Prescription', hasDoc: true, rec: 'rx' }],
+      },
+      bp: {
+        cond: 'High blood pressure', condSub: 'Hypertension · managed by Dr. Rao',
+        overview: 'A long-standing condition, still above target despite medication. Under ongoing Cardiology review.',
+        stats: [{ k: 'First flagged', v: '2023' }, { k: 'Latest', v: '148/92' }, { k: 'Status', v: 'High' }],
+        meds: [{ name: 'Amlodipine 5mg', detail: '1× daily · morning', by: 'Dr. Rao · since Mar 2026' }, { name: 'Telmisartan 40mg', detail: 'Stopped · replaced by Amlodipine', by: 'Dr. Rao · Jan–Mar 2026' }],
+        labs: [{ name: 'BP reading', date: '18 Jun 2026', result: '148/92 \u2191', hasDoc: false, rec: null }, { name: 'Renal function panel', date: '02 May 2026', result: 'Normal', hasDoc: false, rec: null }],
+        visits: [{ place: 'City Hospital', dept: 'Cardiac admission · Dr. Menon', date: '26–28 May', badge: 'Discharge', hasDoc: true, rec: 'ecg' }, { place: 'Apollo Hospital', dept: 'Cardiology · Dr. Rao', date: '18 Jun', badge: 'Follow-up', hasDoc: false, rec: null }],
+      },
+      sugar: {
+        cond: 'Type 2 diabetes', condSub: 'Managed by Dr. Iyer, Endocrinology',
+        overview: 'Diagnosed in 2025. Well controlled and steadily improving with medication and lifestyle changes.',
+        stats: [{ k: 'Diagnosed', v: 'Jan 2025' }, { k: 'Latest HbA1c', v: '7.1%' }, { k: 'Status', v: 'Improving' }],
+        meds: [{ name: 'Metformin 500mg', detail: '2× daily', by: 'Dr. Iyer · since Jan 2025' }],
+        labs: [{ name: 'HbA1c', date: '12 Jun 2026', result: '7.1% \u2193', hasDoc: false, rec: null }, { name: 'HbA1c', date: '08 Mar 2026', result: '7.8%', hasDoc: false, rec: null }, { name: 'Fasting glucose', date: '05 Jun 2026', result: '112', hasDoc: false, rec: null }],
+        visits: [{ place: 'Apollo Hospital', dept: 'Endocrinology · Dr. Iyer', date: '12 Jun', badge: 'Review', hasDoc: false, rec: null }],
+      },
+    };
+    const d = H[this.state.labMetric] || H.chol;
+    const dec = (a) => a.map((x) => ({ ...x, open: x.rec ? () => this.openRecord(x.rec) : () => this.showToast('No document attached') }));
+    return {
+      histCond: d.cond, histCondSub: d.condSub, histOverview: d.overview, histStats: d.stats,
+      histMedsList: d.meds, histLabsList: dec(d.labs), histVisitsList: dec(d.visits),
+    };
+  }
+
+  labVals() {
+    const M = {
+      chol: {
+        title: 'Total cholesterol', value: '210', unit: 'mg/dL', delta: '\u2191 22 from 188 in Feb', status: 'Above target',
+        range: 'Target: under 200 mg/dL', summary: 'Your cholesterol has been climbing over the last four months and is now above the healthy range. LDL (\u201Cbad\u201D) cholesterol is the main driver.',
+        bars: [{ h: 48, label: 'Feb' }, { h: 60, label: 'Mar' }, { h: 54, label: 'Apr' }, { h: 72, label: 'May' }, { h: 82, label: 'Jun', hot: true }],
+        readings: [{ date: '18 Jun', value: '210', flag: '\u2191' }, { date: '02 May', value: '196', flag: '' }, { date: '14 Apr', value: '192', flag: '' }, { date: '08 Mar', value: '196', flag: '' }, { date: '05 Feb', value: '188', flag: '' }],
+        recs: ['Cut saturated fat \u2014 less fried food, butter and red meat', 'Add soluble fibre: oats, beans, apples, lentils', '30 min brisk activity, 5 days a week', 'Recheck lipid profile in 6 weeks \u2014 Dr. Rao'],
+      },
+      bp: {
+        title: 'Blood pressure', value: '148/92', unit: 'mmHg', delta: '\u2191 from 144/90 last month', status: 'Above target',
+        range: 'Target: under 130/80 mmHg', summary: 'Blood pressure remains elevated despite medication. The top (systolic) number has stayed in the high range for several months.',
+        bars: [{ h: 50, label: 'Feb' }, { h: 64, label: 'Mar' }, { h: 56, label: 'Apr' }, { h: 72, label: 'May' }, { h: 80, label: 'Jun', hot: true }],
+        readings: [{ date: '18 Jun', value: '148/92', flag: '\u2191' }, { date: '02 May', value: '144/90', flag: '' }, { date: '14 Apr', value: '138/88', flag: '' }, { date: '08 Mar', value: '142/88', flag: '' }, { date: '05 Feb', value: '136/86', flag: '' }],
+        recs: ['Reduce salt to under 5g a day \u2014 avoid pickles & processed food', 'Take Amlodipine at the same time every day', 'Daily 30-min walk; aim to lose 2\u20133 kg', 'Log your BP each morning at home'],
+      },
+      sugar: {
+        title: 'HbA1c (blood sugar)', value: '7.1', unit: '%', delta: '\u2193 0.7 from 7.8 \u2014 improving', status: 'Improving',
+        range: 'Target: under 7.0 %', summary: 'Good progress \u2014 your average blood sugar has dropped steadily over the year and is now close to target. Keep up the current routine.',
+        bars: [{ h: 82, label: 'Feb' }, { h: 76, label: 'Mar' }, { h: 68, label: 'Apr' }, { h: 60, label: 'May' }, { h: 50, label: 'Jun', hot: true }],
+        readings: [{ date: '12 Jun', value: '7.1%', flag: '\u2193' }, { date: '02 May', value: '7.3%', flag: '' }, { date: '14 Apr', value: '7.5%', flag: '' }, { date: '08 Mar', value: '7.8%', flag: '' }, { date: '05 Feb', value: '8.0%', flag: '' }],
+        recs: ['Keep to whole grains over refined carbs and sugar', 'Continue Metformin twice daily', 'Your daily walking is working \u2014 keep it up', 'Repeat HbA1c in 3 months \u2014 Dr. Iyer'],
+      },
+    };
+    const d = M[this.state.labMetric] || M.chol;
+    const bars = d.bars.map((b) => ({ ...b, style: `flex:1; height:${b.h}px; background:${b.hot ? '#888' : '#d8d8d4'}; border-radius:3px 3px 0 0` }));
+    return {
+      labTitle: d.title, labValue: d.value, labUnit: d.unit, labDelta: d.delta, labStatus: d.status,
+      labRange: d.range, labSummary: d.summary, labBars: bars, labReadings: d.readings, labRecs: d.recs,
+    };
+  }
+
+  timelineVals() {
+    const f = this.state.tlFilter;
+    // Full medical timeline — visits, blood tests, prescriptions, admissions
+    const E = [
+      { m: 'jun', date: '18 Jun', title: 'Cardiology follow-up', sub: 'Dr. Rao · Apollo', badge: 'Visit', rec: null, note: 'BP still 148/92 on Amlodipine. No chest pain. Continue regimen, recheck in 6 weeks.', tags: ['rao', 'apollo', 'cardio'] },
+      { m: 'jun', date: '18 Jun', title: 'Lipid profile', sub: 'Apollo lab · ordered by Dr. Rao', badge: 'Blood test', rec: 'lipid', note: '', tags: ['rao', 'apollo', 'cardio'] },
+      { m: 'jun', date: '12 Jun', title: 'Prescription updated', sub: 'Dr. Rao · Apollo', badge: 'Prescription', rec: 'rx', note: '', tags: ['rao', 'apollo', 'cardio'] },
+      { m: 'jun', date: '12 Jun', title: 'Endocrinology review', sub: 'Dr. Iyer · Apollo', badge: 'Visit', rec: null, note: 'HbA1c down to 7.1% from 7.8%. Continue Metformin, reinforce diet.', tags: ['apollo'] },
+      { m: 'jun', date: '05 Jun', title: 'HbA1c', sub: 'Apollo lab · ordered by Dr. Iyer', badge: 'Blood test', rec: null, note: '', tags: ['apollo'] },
+      { m: 'may', date: '28 May', title: 'ECG · discharge', sub: 'Dr. Menon · City Hospital', badge: 'Discharge', rec: 'ecg', note: '', tags: ['cardio'] },
+      { m: 'may', date: '26 May', title: 'Hospital admission', sub: 'Palpitations · City Hospital', badge: 'Admission', rec: null, note: 'Admitted for palpitations. Normal sinus rhythm, stable angina ruled in. Discharged day 3.', tags: ['cardio'] },
+    ];
+    const match = (e) => f === 'all' || e.tags.includes(f);
+    const q = (this.state.tlQuery || '').trim().toLowerCase();
+    const qmatch = (e) => !q || (e.title + ' ' + e.sub + ' ' + e.badge + ' ' + e.note).toLowerCase().includes(q);
+    const decorate = (e) => ({
+      ...e, hasNote: !!e.note,
+      open: e.rec ? () => this.openRecord(e.rec) : () => this.showToast(e.title + ' · ' + e.date),
+    });
+    const vis = E.filter((e) => match(e) && qmatch(e));
+    const june = vis.filter((e) => e.m === 'jun').map(decorate);
+    const may = vis.filter((e) => e.m === 'may').map(decorate);
+    const searching = q.length > 0;
+    return {
+      tlJune: june, tlMay: may, tlHasJune: june.length > 0, tlHasMay: may.length > 0,
+      tlFiltered: f !== 'all', tlSearching: searching, tlHasResults: vis.length > 0,
+      tlNoResults: searching && vis.length === 0, tlResultLabel: vis.length + (vis.length === 1 ? ' result' : ' results'),
+      tlIsAll: f === 'all' && !searching,
+      tlIsRao: f === 'rao' && !searching, tlIsApollo: f === 'apollo' && !searching, tlIsCardio: f === 'cardio' && !searching,
+    };
+  }
+
+  go(s) { clearTimeout(this._t); this.setState({ screen: s, addSheet: false }); }
+  openAdd() { this.setState({ addSheet: true }); }
+  closeAdd() { this.setState({ addSheet: false }); }
+
+  startScan() { this.setState({ screen: 'capture', cap: 'camera', addSheet: false }); }
+  shutter() {
+    this.setState({ cap: 'extracting' });
+    this._t = setTimeout(() => this.setState({ cap: 'review' }), 1700);
+  }
+
+  startUpload() {
+    this.setState({ screen: 'capture', cap: 'extracting', addSheet: false });
+    this._t = setTimeout(() => this.setState({ cap: 'review' }), 1700);
+  }
+
+  startManual() { this.setState({ screen: 'manual', man: 'choose', addSheet: false }); }
+
+  renderVals() {
+    const s = this.state.screen, c = this.state.cap, m = this.state.man;
+    const main = ['home', 'timeline', 'meds', 'labs', 'history', 'sharing', 'record', 'summary'];
+    const st = this.state;
+    const chip = (on, pad) => on
+      ? `font:12px system-ui; color:#fff; background:#888; padding:${pad}; border-radius:20px; cursor:pointer`
+      : `font:12px system-ui; color:#666; background:#ececea; padding:${pad}; border-radius:20px; cursor:pointer`;
+    const seg = (on) => on
+      ? 'font:12px system-ui; color:#fff; background:#9a9a96; padding:6px 14px; border-radius:9px; cursor:pointer'
+      : 'font:12px system-ui; color:#777; border:1px solid #d4d4d0; padding:6px 14px; border-radius:9px; cursor:pointer';
+    const tog = (on) => `width:38px; height:22px; border-radius:13px; background:${on ? '#888' : '#d8d8d4'}; position:relative; cursor:pointer`;
+    const knob = (on) => `position:absolute; ${on ? 'right:2px' : 'left:2px'}; top:2px; width:18px; height:18px; border-radius:50%; background:#fff`;
+    const langPill = (on) => on
+      ? 'font:11px system-ui; color:#fff; background:#888; padding:4px 11px; cursor:pointer'
+      : 'font:11px system-ui; color:#777; padding:4px 11px; cursor:pointer';
+    const recMeta = ({
+      lipid: { title: 'Lipid profile', pages: 'View original · 2 pages' },
+      rx: { title: 'Prescription', pages: 'View original · 1 page' },
+      ecg: { title: 'ECG · discharge', pages: 'View original · 3 pages' },
+    })[st.recId] || {};
+    const tabHome = s === 'home';
+    const tabTimeline = s === 'timeline' || s === 'record';
+    const tabMeds = s === 'meds';
+    const tabMore = ['labs', 'history', 'sharing', 'summary'].includes(s);
+    return {
+      isLogin: s === 'login', isEmail: s === 'email', isVerify: s === 'verify', isHome: s === 'home',
+      isCapture: s === 'capture', isManual: s === 'manual', isTimeline: s === 'timeline',
+      isRecord: s === 'record', isSummary: s === 'summary', isMeds: s === 'meds',
+      isLabs: s === 'labs', isHistory: s === 'history', isSharing: s === 'sharing',
+      capCamera: c === 'camera', capExtracting: c === 'extracting', capReview: c === 'review',
+      capDuplicate: c === 'duplicate', capSaved: c === 'saved',
+      manChoose: m === 'choose', manMed: m === 'med', manLab: m === 'lab', manVisit: m === 'visit', manSaved: m === 'saved',
+      addSheet: this.state.addSheet,
+      showTab: main.includes(s),
+      tabHome, tabTimeline, tabMeds, tabMore,
+      notTabHome: !tabHome, notTabTimeline: !tabTimeline, notTabMeds: !tabMeds, notTabMore: !tabMore,
+      goLogin: () => this.go('login'), goEmail: () => this.go('email'), goVerify: () => this.go('verify'), goHome: () => this.go('home'),
+      goTimeline: () => this.go('timeline'), goMeds: () => this.go('meds'), goLabs: () => this.go('labs'),
+      goHistory: () => this.go('history'), goSharing: () => this.go('sharing'), goSummary: () => this.go('summary'),
+      goRecord: () => this.go('record'), goMore: () => this.go('labs'),
+      openAdd: () => this.openAdd(), closeAdd: () => this.closeAdd(),
+      startScan: () => this.startScan(), shutter: () => this.shutter(),
+      startUpload: () => this.startUpload(),
+      toDuplicate: () => this.setState({ cap: 'duplicate' }), toSaved: () => this.setState({ cap: 'saved' }),
+      finishCapture: () => this.go('timeline'),
+      startManual: () => this.startManual(),
+      pickMed: () => this.setState({ man: 'med' }), pickLab: () => this.setState({ man: 'lab' }), pickVisit: () => this.setState({ man: 'visit' }),
+      saveManual: () => this.setState({ man: 'saved' }), finishManual: () => this.go('timeline'), manualBack: () => this.setState({ man: 'choose' }),
+      toCamera: () => this.toCamera(),
+      recTitle: recMeta.title, recPages: recMeta.pages,
+      recIsLipid: st.recId === 'lipid', recIsRx: st.recId === 'rx', recIsEcg: st.recId === 'ecg',
+      openLipid: () => this.openRecord('lipid'), openRx: () => this.openRecord('rx'), openEcg: () => this.openRecord('ecg'),
+
+      // doctor summary filter
+      docRao: chip(st.docFilter === 'rao', '7px 13px'), docIyer: chip(st.docFilter === 'iyer', '7px 13px'), docMenon: chip(st.docFilter === 'menon', '7px 13px'),
+      setDocRao: () => this.set({ docFilter: 'rao' }), setDocIyer: () => this.set({ docFilter: 'iyer' }), setDocMenon: () => this.set({ docFilter: 'menon' }),
+      docIsRao: st.docFilter === 'rao', docIsIyer: st.docFilter === 'iyer', docIsMenon: st.docFilter === 'menon',
+
+      // timeline event model + filtering
+      ...this.timelineVals(),
+
+      // timeline filters
+      tlAll: chip(st.tlFilter === 'all', '6px 13px'), tlRao: chip(st.tlFilter === 'rao', '6px 13px'),
+      tlApollo: chip(st.tlFilter === 'apollo', '6px 13px'), tlCardio: chip(st.tlFilter === 'cardio', '6px 13px'),
+      setTlAll: () => this.set({ tlFilter: 'all' }), setTlRao: () => this.set({ tlFilter: 'rao' }),
+      setTlApollo: () => this.set({ tlFilter: 'apollo' }), setTlCardio: () => this.set({ tlFilter: 'cardio' }),
+
+      // labs metric
+      labChol: chip(st.labMetric === 'chol', '6px 13px'), labBp: chip(st.labMetric === 'bp', '6px 13px'), labSugar: chip(st.labMetric === 'sugar', '6px 13px'),
+      setLabChol: () => this.set({ labMetric: 'chol' }), setLabBp: () => this.set({ labMetric: 'bp' }), setLabSugar: () => this.set({ labMetric: 'sugar' }),
+      ...this.labVals(),
+      ...this.histVals(),
+
+      // history category + type
+      histMeds: chip(st.histCat === 'meds', '6px 12px'), histLabs: chip(st.histCat === 'labs', '6px 12px'), histHosp: chip(st.histCat === 'hosp', '6px 12px'),
+      setHistMeds: () => this.set({ histCat: 'meds' }), setHistLabs: () => this.set({ histCat: 'labs' }), setHistHosp: () => this.set({ histCat: 'hosp' }),
+      histIn: seg(st.histType === 'inpatient'), histOut: seg(st.histType === 'outpatient'),
+      setHistIn: () => this.set({ histType: 'inpatient' }), setHistOut: () => this.set({ histType: 'outpatient' }),
+
+      // manual visit type + med frequency
+      visOut: seg(st.visitType === 'outpatient'), visIn: seg(st.visitType === 'inpatient'),
+      setVisOut: () => this.set({ visitType: 'outpatient' }), setVisIn: () => this.set({ visitType: 'inpatient' }),
+      freqOnce: chip(st.medFreq === 'once', '7px 13px'), freqTwice: chip(st.medFreq === 'twice', '7px 13px'), freqPrn: chip(st.medFreq === 'prn', '7px 13px'),
+      setFreqOnce: () => this.set({ medFreq: 'once' }), setFreqTwice: () => this.set({ medFreq: 'twice' }), setFreqPrn: () => this.set({ medFreq: 'prn' }),
+
+      // meds tabs
+      medCurOn: st.medTab === 'current', medHistOn: st.medTab === 'history',
+      medCurStyle: st.medTab === 'current'
+        ? 'font:13px system-ui; color:#444; padding:0 0 10px; border-bottom:2px solid #888; margin-right:20px; cursor:pointer'
+        : 'font:13px system-ui; color:#aaa; padding:0 0 10px; margin-right:20px; cursor:pointer',
+      medHistStyle: st.medTab === 'history'
+        ? 'font:13px system-ui; color:#444; padding:0 0 10px; border-bottom:2px solid #888; cursor:pointer'
+        : 'font:13px system-ui; color:#aaa; padding:0 0 10px; cursor:pointer',
+      setMedCur: () => this.set({ medTab: 'current' }), setMedHist: () => this.set({ medTab: 'history' }),
+
+      // record language toggle
+      langEn: langPill(st.recLang === 'en'), langTa: langPill(st.recLang === 'ta'),
+      setLangEn: () => this.set({ recLang: 'en' }), setLangTa: () => this.set({ recLang: 'ta' }),
+
+      // password reveal
+      showPw: st.showPw, pwLabel: st.showPw ? 'Hide' : 'Show',
+      pwText: st.showPw ? 'priya123' : '\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022',
+      pwStyle: st.showPw ? 'font:14px system-ui; color:#555' : 'font:14px system-ui; color:#555; letter-spacing:3px',
+      togglePw: () => this.set({ showPw: !st.showPw }),
+
+      // notify toggles
+      togRecord: tog(st.notif.record), knobRecord: knob(st.notif.record),
+      togAlerts: tog(st.notif.alerts), knobAlerts: knob(st.notif.alerts),
+      togAppts: tog(st.notif.appts), knobAppts: knob(st.notif.appts),
+      toggleRecord: () => this.toggleNotif('record'), toggleAlerts: () => this.toggleNotif('alerts'), toggleAppts: () => this.toggleNotif('appts'),
+
+      // camera helpers + terminal actions (toasts)
+      pickGallery: () => this.startUpload(),
+      toast: st.toast, hasToast: !!st.toast,
+      tMultipage: () => this.showToast('Add another page'),
+      tShare: () => this.showToast('Preparing summary to share'),
+      tSharePdf: () => this.showToast('Generating PDF\u2026'),
+      tInvite: () => this.showToast('Invite link copied'),
+      tForgot: () => this.showToast('Reset link sent to your email'),
+      tResend: () => this.showToast('A new code was sent'),
+      tOriginal: () => this.showToast('Opening original scan'),
+      tEdit: () => this.showToast('Tap any field to edit it'),
+      tAddTag: () => this.showToast('Add a tag'),
+      tFilter: () => this.showToast('Filter timeline'),
+      tSearch: () => this.showToast('Search your records'),
+      tlQuery: st.tlQuery,
+      tlSetQuery: (e) => this.set({ tlQuery: e.target.value }),
+      tlClearQuery: () => this.set({ tlQuery: '' }),
+      tProfile: () => this.showToast('Switch profile'),
+      tShareRec: () => this.showToast('Share this record'),
+      tMedDetail: () => this.showToast('Medication details'),
+      tReading: () => this.showToast('Reading details'),
+      tAdmission: () => this.showToast('Admission details'),
+      tInteraction: () => this.showToast('Reviewing interaction'),
+    };
+  }
+}
+</script>
+</body>
+</html>
